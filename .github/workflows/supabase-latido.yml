@@ -1,0 +1,36 @@
+# Mantiene despierto el proyecto de Supabase.
+#
+# El plan gratuito pausa un proyecto tras 7 días sin actividad. Esto le hace
+# una escritura real a la base cada dos días, con margen de sobra.
+#
+# Hace falta configurar dos secretos del repositorio
+# (Settings → Secrets and variables → Actions → New repository secret):
+#   SUPABASE_URL        https://TU_REF.supabase.co
+#   SUPABASE_ANON_KEY   la clave publishable/anon del proyecto
+#   PING_SECRET         el valor de la columna "secret" de public.heartbeat
+#
+# GitHub puede desactivar los cron de un repositorio sin commits en 60 días;
+# si eso pasa, el propio GitHub avisa por correo y se reactiva con un clic.
+name: Latido de Supabase
+
+on:
+  schedule:
+    - cron: "17 9 */2 * *" # cada dos días, 9:17 UTC (5:17 a. m. en Venezuela)
+  workflow_dispatch: # y a mano, desde la pestaña Actions
+
+jobs:
+  latido:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Llamar a public.ping
+        run: |
+          codigo=$(curl -sS -o /tmp/respuesta.txt -w '%{http_code}' \
+            -X POST "${{ secrets.SUPABASE_URL }}/rest/v1/rpc/ping" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"p_secret\":\"${{ secrets.PING_SECRET }}\"}")
+          echo "HTTP $codigo"
+          cat /tmp/respuesta.txt
+          # Sin esto, un proyecto pausado o una clave mala pasarían como éxito.
+          test "$codigo" = "200"

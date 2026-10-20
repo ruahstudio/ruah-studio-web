@@ -1,0 +1,14 @@
+/**
+ * Proyecto de Cloudflare Pages para el sitio de RUAH Studio.
+ *
+ * nodejs_compat es obligatorio: el servidor del sitio (SSR de TanStack Start)
+ * usa APIs de Node que el runtime de Cloudflare sólo expone con esa bandera.
+ *
+ * Aquí NO van llaves: las variables se cargan en el panel de Pages.
+ */
+{
+  "name": "ruah-studio",
+  "compatibility_date": "2026-10-16",
+  "compatibility_flags": ["nodejs_compat"],
+  "pages_build_output_dir": "dist"
+}
