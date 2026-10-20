@@ -1,0 +1,508 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system: "Studio Terminal"
+ * Dark technical studio aesthetic — deep ink surfaces, signal-lime accent,
+ * grotesk display + mono labels. All colors in oklch.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-signal: var(--signal);
+  --color-signal-foreground: var(--signal-foreground);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* ============================================================
+   THEMES
+   Light and dark are designed separately, not inverted. The lime
+   signal that carries the dark theme is unreadable on white, so the
+   light theme uses a deep forest accent at the same hue — same brand,
+   legible contrast. Light reads architectural; dark reads nocturnal.
+   ============================================================ */
+
+:root {
+  --radius: 0.5rem;
+
+  /* LIGHT — warm off-white paper, ink text, deep accent */
+  --background: oklch(0.985 0.003 95);
+  --foreground: oklch(0.21 0.012 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.012 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.012 250);
+  --primary: oklch(0.48 0.13 130);
+  --primary-foreground: oklch(0.99 0.005 95);
+  --secondary: oklch(0.94 0.004 95);
+  --secondary-foreground: oklch(0.21 0.012 250);
+  --muted: oklch(0.95 0.004 95);
+  --muted-foreground: oklch(0.47 0.012 250);
+  --accent: oklch(0.45 0.1 220);
+  --accent-foreground: oklch(0.99 0.005 95);
+  --destructive: oklch(0.52 0.2 25);
+  --destructive-foreground: oklch(0.99 0.005 95);
+  --border: oklch(0.855 0.005 95);
+  --input: oklch(0.855 0.005 95);
+  --ring: oklch(0.48 0.13 130);
+  --surface: oklch(0.945 0.004 95);
+  --surface-2: oklch(0.9 0.005 95);
+  --signal: oklch(0.48 0.13 130);
+  --signal-foreground: oklch(0.99 0.005 95);
+  --chart-1: oklch(0.48 0.13 130);
+  --chart-2: oklch(0.45 0.1 220);
+  --chart-3: oklch(0.55 0.13 60);
+  --chart-4: oklch(0.45 0.12 285);
+  --chart-5: oklch(0.52 0.15 20);
+  --sidebar: oklch(0.965 0.003 95);
+  --sidebar-foreground: oklch(0.21 0.012 250);
+  --sidebar-primary: oklch(0.48 0.13 130);
+  --sidebar-primary-foreground: oklch(0.99 0.005 95);
+  --sidebar-accent: oklch(0.93 0.004 95);
+  --sidebar-accent-foreground: oklch(0.21 0.012 250);
+  --sidebar-border: oklch(0.89 0.004 95);
+  --sidebar-ring: oklch(0.48 0.13 130);
+
+  /* Backdrop for the hero scene, per theme. */
+  --scene-fog: oklch(0.985 0.003 95);
+}
+
+.dark {
+  /* DARK — near-black, elevated surfaces, lime signal */
+  --background: oklch(0.16 0.012 250);
+  --foreground: oklch(0.96 0.005 250);
+  --card: oklch(0.2 0.014 250);
+  --card-foreground: oklch(0.96 0.005 250);
+  --popover: oklch(0.2 0.014 250);
+  --popover-foreground: oklch(0.96 0.005 250);
+  --primary: oklch(0.88 0.19 118);
+  --primary-foreground: oklch(0.18 0.03 130);
+  --secondary: oklch(0.26 0.016 250);
+  --secondary-foreground: oklch(0.96 0.005 250);
+  --muted: oklch(0.24 0.014 250);
+  --muted-foreground: oklch(0.68 0.014 250);
+  --accent: oklch(0.78 0.13 200);
+  --accent-foreground: oklch(0.18 0.02 210);
+  --destructive: oklch(0.62 0.21 25);
+  --destructive-foreground: oklch(0.98 0.005 250);
+  --border: oklch(0.3 0.016 250);
+  --input: oklch(0.3 0.016 250);
+  --ring: oklch(0.88 0.19 118);
+  --surface: oklch(0.19 0.013 250);
+  --surface-2: oklch(0.23 0.015 250);
+  --signal: oklch(0.88 0.19 118);
+  --signal-foreground: oklch(0.18 0.03 130);
+  --chart-1: oklch(0.88 0.19 118);
+  --chart-2: oklch(0.78 0.13 200);
+  --chart-3: oklch(0.72 0.15 60);
+  --chart-4: oklch(0.65 0.12 280);
+  --chart-5: oklch(0.7 0.14 20);
+  --sidebar: oklch(0.19 0.013 250);
+  --sidebar-foreground: oklch(0.96 0.005 250);
+  --sidebar-primary: oklch(0.88 0.19 118);
+  --sidebar-primary-foreground: oklch(0.18 0.03 130);
+  --sidebar-accent: oklch(0.26 0.016 250);
+  --sidebar-accent-foreground: oklch(0.96 0.005 250);
+  --sidebar-border: oklch(0.3 0.016 250);
+  --sidebar-ring: oklch(0.88 0.19 118);
+
+  --scene-fog: oklch(0.16 0.012 250);
+}
+
+/*
+ * Native form controls follow the theme — and, more importantly, `only light`
+ * opts out of Chrome for Android's "Auto Dark Theme", which force-darkens any
+ * page that merely says `light`. That is why the light theme looked white on a
+ * laptop and washed grey on the phone: the phone was repainting it. Desktop
+ * Chrome never applies auto-dark, so the bug was invisible there.
+ */
+:root {
+  color-scheme: only light;
+}
+.dark {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  /*
+   * html carries the background as well as body. Mobile rubber-band scrolling
+   * pulls past body and exposes the canvas underneath, which the browser
+   * paints from its own default — grey when the OS is in dark mode. Desktop
+   * has no overscroll, so again the gap only showed on the phone.
+   */
+  html {
+    background-color: var(--color-background);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--signal);
+    color: var(--signal-foreground);
+  }
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility grid-lines {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklch, var(--border) 60%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--border) 60%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 64px 64px;
+}
+
+@utility glow-signal {
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--signal) 30%, transparent),
+    0 24px 60px -24px color-mix(in oklch, var(--signal) 45%, transparent);
+}
+
+/* Accessibility: visible keyboard focus + reduced motion */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Premium portrait treatment: subtle grain overlay */
+@utility photo-grain {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.16;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Arabic typography + RTL layout mirroring */
+:root[lang="ar"] {
+  --font-display: "IBM Plex Sans Arabic", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans Arabic", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root[lang="ar"] .label-mono {
+  letter-spacing: 0.06em;
+}
+
+[dir="rtl"] .grid-lines {
+  transform: scaleX(-1);
+}
+
+/* Motion layer: gradient mesh, grain, cursor */
+.gradient-mesh {
+  /* Light: cool architectural wash. Dark: luminous glow. Same geometry,
+     different intent — not the same layer shown twice. */
+  background:
+    radial-gradient(45% 40% at 20% 25%, oklch(0.55 0.09 240 / 0.07), transparent 70%),
+    radial-gradient(40% 35% at 80% 30%, oklch(0.5 0.08 150 / 0.06), transparent 70%),
+    radial-gradient(50% 45% at 50% 85%, oklch(0.6 0.06 240 / 0.05), transparent 70%);
+  filter: blur(14px);
+  animation: mesh-drift 24s ease-in-out infinite alternate;
+}
+
+.dark .gradient-mesh {
+  background:
+    radial-gradient(45% 40% at 20% 25%, oklch(0.85 0.19 122 / 0.09), transparent 70%),
+    radial-gradient(40% 35% at 80% 30%, oklch(0.6 0.12 200 / 0.08), transparent 70%),
+    radial-gradient(50% 45% at 50% 85%, oklch(0.85 0.19 122 / 0.06), transparent 70%);
+  filter: blur(10px);
+}
+
+@keyframes mesh-drift {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.08) translate3d(2%, -1.5%, 0);
+  }
+  100% {
+    transform: scale(1.03) translate3d(-2%, 1.5%, 0);
+  }
+}
+
+.grain-overlay {
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.dark .grain-overlay {
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+}
+
+html.has-custom-cursor,
+html.has-custom-cursor a,
+html.has-custom-cursor button {
+  cursor: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-mesh {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   DESIGN SYSTEM — Editorial layer
+   Added in the premium rebuild. Motion, type scale and rhythm
+   tokens so sections stop inventing their own values.
+   ============================================================ */
+
+:root {
+  /* Motion — one curve family, three speeds. Nothing else. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur-base: 420ms;
+  --dur-slow: 900ms;
+
+  /* Vertical rhythm — sections pick from these, never arbitrary py-* */
+  /* Mobile was reading as "very spaced out": 5rem minimum plus a 4rem inner
+     margin meant 144px of air before any content on a 375px screen.
+     The floor is now tight and the ceiling still generous on desktop. */
+  --section-y: clamp(3.25rem, 9vw, 9rem);
+  --section-y-tight: clamp(2.5rem, 6vw, 5rem);
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --measure: 62ch;
+}
+
+/* Editorial display type. Optical sizing + tight tracking at scale. */
+@utility display-xl {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 5.6vw, 4.75rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+@utility display-lg {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3.6vw, 2.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+
+@utility display-md {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+}
+
+/* Arabic never gets negative tracking — it breaks glyph joining. */
+:root[lang="ar"] :is(.display-xl, .display-lg, .display-md) {
+  letter-spacing: 0;
+  line-height: 1.25;
+}
+
+@utility lede {
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  line-height: 1.65;
+  color: var(--muted-foreground);
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+/* Hairline rule that fades — used between editorial blocks */
+@utility rule-fade {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in oklch, var(--border) 90%, transparent) 15%,
+    color-mix(in oklch, var(--border) 90%, transparent) 85%,
+    transparent
+  );
+}
+
+/* Animated underline for editorial links — origin flips in RTL */
+@utility link-underline {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  &:hover::after,
+  &:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+[dir="rtl"] .link-underline::after {
+  transform-origin: right;
+}
+
+/* Number tabular alignment for stats and pricing */
+@utility numeric {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ============================================================
+   THE LAST 10%
+   Details that are invisible until they're missing.
+   ============================================================ */
+
+/* Anchor targets must clear the fixed navbar. Without this, every in-page
+   link lands with the heading hidden behind the header. */
+:target,
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Selection should feel designed, not default-blue. */
+::selection {
+  background: var(--signal);
+  color: var(--signal-foreground);
+}
+
+/* A visible, branded focus ring everywhere — keyboard users are users. */
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Headings should never break awkwardly on the last line. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* Prevent layout shift from the scrollbar when a modal locks scroll. */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Images should never be dragged out by accident on a portfolio. */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* Respect the OS setting globally, not just per component. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Signature is black ink on transparency. One utility so the two places that
+   render it can never drift apart again: ink stays dark on light, flips to
+   light on dark. */
+@utility signature-ink {
+  filter: none;
+}
+.dark .signature-ink {
+  filter: invert(1);
+}
