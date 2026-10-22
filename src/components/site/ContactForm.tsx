@@ -17,8 +17,8 @@ import {
 } from "@/lib/brief";
 import { validateName } from "@/lib/contact";
 import { GOAL_IDS, cleanGoals, goalLabel, goalsText } from "@/lib/goals";
-import { composeHandoff, quoteFor, saveLead } from "@/lib/leads";
-import { signQuote, uploadQuote } from "@/lib/quote";
+import { composeHandoff, quoteFor } from "@/lib/leads";
+import { completeHandoff, openHandoffTab, waUrl } from "@/lib/handoff";
 import { getSession, useSession } from "@/lib/session";
 import { QuoteCard } from "@/components/site/BriefCards";
 import {
@@ -106,6 +106,9 @@ export function ContactForm({
   );
   const [concluding, setConcluding] = useState(false);
   const [sending, setSending] = useState(false);
+  // Offered again on the confirmation: a popup blocker or a closed tab must
+  // not be the end of the hand-off.
+  const [sentUrl, setSentUrl] = useState<string | null>(null);
   const liveRef = useRef<HTMLParagraphElement>(null);
 
   const Next = dir === "rtl" ? ArrowLeft : ArrowRight;
@@ -258,27 +261,28 @@ export function ContactForm({
     const { contact: c, errors: ce } = checkContact({ ...contact, name: form.name }, tr);
     setContactErrors(ce);
     if (!c) return;
-    // Open inside the submit; a window.open() after an await is a blocked popup.
-    const tab = window.open("about:blank", "_blank");
+
+    // Opened inside the submit (a window.open() after an await is a blocked
+    // popup), already pointing at a page that can reach WhatsApp on its own.
+    const tab = openHandoffTab(
+      waUrl(whatsapp, composeHandoff(getSession(), c.name, lang, null)),
+      lang,
+    );
     setSending(true);
 
-    // Same as the chat: the PDF travels with the message, and a failure at
-    // any step only costs the link, never the hand-off.
-    const file = await uploadQuote(getSession(), lang, siteName, whatsapp);
-    const { error } = await saveLead(getSession(), c, lang, "form", file?.path ?? null);
-    if (error) console.error("lead insert failed", error);
-    const quoteUrl = file ? await signQuote(getSession().ref, file.path) : null;
-
-    const url = `https://wa.me/${whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(
-      composeHandoff(getSession(), c.name, lang, quoteUrl),
-    )}`;
-    patch({ leadSaved: true, name: c.name });
-    setSending(false);
-    if (tab) {
-      tab.opener = null;
-      tab.location.href = url;
-    } else {
-      window.location.href = url;
+    try {
+      const { url } = await completeHandoff({
+        tab,
+        contact: c,
+        lang,
+        channel: "form",
+        siteName,
+        whatsapp,
+      });
+      setSentUrl(url);
+    } finally {
+      patch({ leadSaved: true, name: c.name });
+      setSending(false);
     }
   }
 
@@ -297,6 +301,17 @@ export function ContactForm({
         <p className="mt-4 font-mono text-xs text-muted-foreground">
           {tr("wa.ref")}: {session.ref}
         </p>
+        {sentUrl && (
+          <a
+            href={sentUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="form-wa-fallback"
+            className="mt-6 font-mono text-[11px] uppercase tracking-widest text-signal underline-offset-4 hover:underline"
+          >
+            {tr("wa.fallback")}
+          </a>
+        )}
       </div>
     );
   }

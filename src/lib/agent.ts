@@ -42,11 +42,26 @@ export type AgentTurn = {
 
 const t = (lang: Lang, k: AnyKey, vars?: Record<string, string>) => translate(lang, k, vars);
 
+/**
+ * Translates a fixed code, falling back to the code itself.
+ *
+ * `translate` returns the key when it doesn't know it, so an unexpected value
+ * — a lead saved by an older version of the form, or an edit in Supabase —
+ * showed John "bd.600-1000" in the CRM instead of a budget. Showing the raw
+ * value is wrong-but-readable; showing the lookup key is neither.
+ */
+function labelFor(lang: Lang, prefix: string, code: string): string {
+  if (!code) return "";
+  const key = `${prefix}.${code}`;
+  const label = t(lang, key as AnyKey);
+  return label === key ? code : label;
+}
+
 export function timelineLabel(lang: Lang, code: string): string {
-  return code ? t(lang, `tl.${code}` as AnyKey) : "";
+  return labelFor(lang, "tl", code);
 }
 export function budgetLabel(lang: Lang, code: string): string {
-  return code ? t(lang, `bd.${code}` as AnyKey) : "";
+  return labelFor(lang, "bd", code);
 }
 
 const firstMissing = (b: BriefData): BriefField | undefined =>

@@ -12,7 +12,6 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { ThemeProvider, THEME_COLOR, THEME_INIT_SCRIPT } from "@/theme/ThemeProvider";
 import {
   OG_IMAGE,
@@ -23,7 +22,7 @@ import {
   structuredData,
 } from "@/lib/seo";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
-import { CustomCursor } from "@/components/motion/CustomCursor";
+import { HashScroll } from "@/components/motion/HashScroll";
 import { I18nProvider, LANGS, useTranslation } from "@/i18n";
 
 function NotFoundComponent() {
@@ -168,6 +167,11 @@ function RootComponent() {
       <ThemeProvider>
         <I18nProvider>
           <SkipLink />
+          {/* Section links only work because of this: half the landing page
+              mounts after its CMS query resolves, so the browser's own anchor
+              jump has nothing to find on a direct hit. */}
+          <HashScroll />
+          <ScrollProgress />
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
           <Toaster />

@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Github, Instagram, Linkedin, Mail, MessageCircle } from "lucide-react";
 import { SystemBuilder } from "@/components/SystemBuilder";
+import { About } from "@/components/About";
 import { Reveal } from "@/components/Reveal";
 import type { ExtraKey } from "@/i18n/extra";
 import { Testimonials } from "@/components/Testimonials";
@@ -145,7 +146,10 @@ function Index() {
         onPrefill={goToForm}
       />
 
-      {/* ABOUT */}
+      {/* ABOUT — the founder, before the stack. In a one-person studio the
+          person is the differentiator, and the landing page had never once
+          shown him. */}
+      <About />
 
       {/* STACK */}
       <TechStack />

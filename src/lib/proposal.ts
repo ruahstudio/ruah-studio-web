@@ -1,10 +1,52 @@
 import { jsPDF } from "jspdf";
 import { translate, type Lang } from "@/i18n";
 import { plainText } from "@/lib/markdown";
+import { SIGNATURE_PNG, SIGNATURE_SIZE } from "@/assets/signature-data";
 
 const INK = [18, 20, 26] as const;
 const MUTED = [110, 116, 128] as const;
 const SIGNAL = [132, 204, 22] as const;
+const PAPER = [255, 255, 255] as const;
+
+/**
+ * The Ruah mark, drawn rather than placed.
+ *
+ * The only logo file in the repo is a 64px favicon — upscaled onto an A4
+ * cover it looked like exactly what it is. Drawn with the document's own
+ * primitives it stays sharp at any size and at any zoom, and it is the same
+ * lockup the site header uses: the monogram tile, then the wordmark.
+ */
+function drawLogo(
+  doc: jsPDF,
+  x: number,
+  y: number,
+  size: number,
+  opts: { onDark?: boolean; wordmark?: boolean } = {},
+) {
+  const { onDark = false, wordmark = true } = opts;
+
+  // Monogram tile.
+  if (onDark) {
+    doc.setFillColor(SIGNAL[0], SIGNAL[1], SIGNAL[2]);
+    doc.roundedRect(x, y, size, size, size * 0.26, size * 0.26, "F");
+    doc.setTextColor(INK[0], INK[1], INK[2]);
+  } else {
+    doc.setFillColor(INK[0], INK[1], INK[2]);
+    doc.roundedRect(x, y, size, size, size * 0.26, size * 0.26, "F");
+    doc.setTextColor(SIGNAL[0], SIGNAL[1], SIGNAL[2]);
+  }
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(size * 0.68);
+  doc.text("R", x + size / 2, y + size * 0.74, { align: "center" });
+
+  if (!wordmark) return x + size;
+
+  const gap = size * 0.46;
+  doc.setFontSize(size * 0.44);
+  doc.setTextColor(...((onDark ? PAPER : INK) as unknown as [number, number, number]));
+  doc.text("RUAH STUDIO", x + size + gap, y + size * 0.68);
+  return x + size + gap + doc.getTextWidth("RUAH STUDIO");
+}
 
 /** jsPDF core fonts have no Arabic glyphs, so the PDF falls back to English for `ar`. */
 function pdfLang(lang: Lang): Lang {
@@ -87,15 +129,15 @@ export function buildProposalPdf(input: ProposalInput): { blob: Blob; filename: 
   doc.setFillColor(INK[0], INK[1], INK[2]);
   doc.rect(0, 0, W, H, "F");
 
+  // The mark, top-left, where a studio document carries it.
+  drawLogo(doc, M, 96, 30, { onDark: true });
+
   doc.setDrawColor(SIGNAL[0], SIGNAL[1], SIGNAL[2]);
   doc.setLineWidth(2);
   doc.line(M, 150, M + 54, 150);
 
   doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(11);
-  doc.text(input.studio.toUpperCase(), M, 130);
-
   doc.setFontSize(40);
   doc.text(t("prop.cover1"), M, 240);
   doc.text(t("prop.cover2"), M, 286);
@@ -143,10 +185,12 @@ export function buildProposalPdf(input: ProposalInput): { blob: Blob; filename: 
     doc.setDrawColor(226, 229, 234);
     doc.setLineWidth(0.5);
     doc.line(M, H - 54, W - M, H - 54);
+    // Mark in the footer too, so a single printed page still carries it.
+    drawLogo(doc, M, H - 48, 13, { wordmark: false });
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7.5);
     muted();
-    doc.text(`${input.studio}  ·  ${ref}`, M, H - 38);
+    doc.text(`${input.studio}  ·  ${ref}`, M + 20, H - 38);
     doc.text(String(page).padStart(2, "0"), W - M, H - 38, { align: "right" });
   };
 
@@ -353,6 +397,55 @@ export function buildProposalPdf(input: ProposalInput): { blob: Blob; filename: 
     COL * 0.86,
   );
 
+  // ── SIGNATURE ──────────────────────────────────────────
+  // A quote nobody put their name to reads as a generated file. This is the
+  // same hand on the About page and in the site footer, so the document, the
+  // site and the person who answers on WhatsApp are visibly one.
+  room(128);
+  y += 10;
+  doc.setDrawColor(226, 229, 234);
+  doc.setLineWidth(0.5);
+  doc.line(M, y, W - M, y);
+  y += 26;
+
+  const sigW = 150;
+  const sigH = (SIGNATURE_SIZE.height / SIGNATURE_SIZE.width) * sigW;
+  try {
+    doc.addImage(SIGNATURE_PNG, "PNG", M, y, sigW, sigH, undefined, "FAST");
+  } catch (err) {
+    // A failed stamp must never cost the document.
+    console.error("signature could not be drawn", err);
+  }
+  y += sigH + 6;
+
+  doc.setDrawColor(190, 195, 204);
+  doc.setLineWidth(0.5);
+  doc.line(M, y, M + 190, y);
+  y += 14;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9.5);
+  ink();
+  doc.text(input.founder, M, y);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7.5);
+  muted();
+  doc.text(`${t("prop.signedBy")} · ${input.studio}`, M, y + 12);
+  doc.text(`${input.email}  ·  WhatsApp +${input.whatsapp.replace(/\D/g, "")}`, M, y + 23);
+
+  // Date and reference sit opposite the signature, as on any signed document.
+  doc.setFontSize(7);
+  doc.setTextColor(150, 156, 168);
+  doc.text(t("prop.date").toUpperCase(), W - M, y - 14, { align: "right" });
+  doc.setFontSize(9.5);
+  ink();
+  doc.text(dateStr, W - M, y, { align: "right" });
+  doc.setFontSize(7.5);
+  muted();
+  doc.text(`${t("prop.docRef")} ${ref}`, W - M, y + 12, { align: "right" });
+  doc.text(t("prop.validity"), W - M, y + 23, { align: "right" });
+  y += 44;
+
   room(46);
   doc.setFontSize(7.5);
   muted();
@@ -419,10 +512,7 @@ export function generateBriefPdf(input: BriefInput) {
   doc.setFillColor(SIGNAL[0], SIGNAL[1], SIGNAL[2]);
   doc.rect(0, 138, W, 3, "F");
 
-  doc.setTextColor(255, 255, 255);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(22);
-  doc.text(studio.toUpperCase(), M, 66);
+  drawLogo(doc, M, 38, 26, { onDark: true });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
   doc.setTextColor(SIGNAL[0], SIGNAL[1], SIGNAL[2]);

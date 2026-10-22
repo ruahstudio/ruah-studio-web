@@ -65,6 +65,49 @@ function readDismissed(): Dismissed {
   }
 }
 
+/**
+ * One figure in the pipeline readout.
+ *
+ * A stat that points at work to do is clickable and filters the list to it;
+ * one that only reports is not a button, so nothing invites a dead click.
+ */
+function Stat({
+  label,
+  value,
+  note,
+  tone,
+  onClick,
+}: {
+  label: string;
+  value: string;
+  note?: string;
+  tone?: "signal" | "warn" | undefined;
+  onClick?: (() => void) | undefined;
+}) {
+  const valueTone =
+    tone === "signal" ? "text-signal" : tone === "warn" ? "text-signal" : "text-foreground";
+  const inner = (
+    <>
+      <dt className="label-mono text-[10px] text-muted-foreground">{label}</dt>
+      <dd className={`numeric mt-1.5 font-display text-2xl font-bold tracking-tight ${valueTone}`}>
+        {value}
+      </dd>
+      {note && <p className="mt-0.5 font-mono text-[10px] text-muted-foreground">{note}</p>}
+    </>
+  );
+
+  if (!onClick) return <div className="bg-card px-4 py-3.5">{inner}</div>;
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="bg-card px-4 py-3.5 text-start transition-colors hover:bg-surface-2"
+    >
+      {inner}
+    </button>
+  );
+}
+
 export function Crm() {
   const { data, isLoading, error } = useLeads();
   const update = useUpdateLead();
@@ -115,21 +158,40 @@ export function Crm() {
 
   const counts = useMemo(() => {
     const c = Object.fromEntries(STAGES.map((s) => [s, 0])) as Record<LeadStatus, number>;
-    for (const l of leads) c[l.status] += 1;
+    // A status the app doesn't know about must not turn the tally into NaN.
+    for (const l of leads) if (l.status in c) c[l.status] += 1;
     return c;
   }, [leads]);
 
-  const pipelineValue = useMemo(
-    () =>
-      leads
-        .filter((l) => OPEN_STAGES.includes(l.status))
-        .reduce((s, l) => s + (l.value_usd ?? 0), 0),
-    [leads],
-  );
-  const wonValue = useMemo(
-    () => leads.filter((l) => l.status === "ganado").reduce((s, l) => s + (l.value_usd ?? 0), 0),
-    [leads],
-  );
+  /**
+   * The numbers that decide what John does with the next hour.
+   *
+   * The header used to carry one line — lead count, pipeline, won — which
+   * says how things have gone but not what needs doing. Overdue and unanswered
+   * are the two that cost money today, so they are stated next to the money.
+   *
+   * `value_usd` is what John set after talking; `estimate_usd` is what the
+   * site quoted. Falling back to the estimate means the pipeline figure isn't
+   * zero just because nobody has typed a number in yet.
+   */
+  const stats = useMemo(() => {
+    const open = leads.filter((l) => OPEN_STAGES.includes(l.status));
+    const won = leads.filter((l) => l.status === "ganado");
+    const closed = won.length + leads.filter((l) => l.status === "perdido").length;
+    const weekAgo = Date.now() - 7 * 86_400_000;
+    const worth = (l: Lead) => l.value_usd ?? l.estimate_usd ?? 0;
+    return {
+      open: open.length,
+      pipeline: open.reduce((s, l) => s + worth(l), 0),
+      won: won.length,
+      wonValue: won.reduce((s, l) => s + worth(l), 0),
+      // Conversion is meaningless until something has actually closed.
+      winRate: closed > 0 ? Math.round((won.length / closed) * 100) : null,
+      thisWeek: leads.filter((l) => new Date(l.created_at).getTime() >= weekAgo).length,
+      due: open.filter(isDue).length,
+      untouched: leads.filter((l) => l.status === "nuevo").length,
+    };
+  }, [leads]);
 
   const recos = useMemo(
     () =>
@@ -139,12 +201,26 @@ export function Crm() {
     [leads, dismissed],
   );
 
+  /**
+   * Opens a lead from anywhere — a recommendation, the copilot, the palette —
+   * widening the filter when the lead isn't in the current one.
+   *
+   * The cursor is set in an effect rather than here, because `filtered` still
+   * holds the pre-widening list at this point: computing the index now meant
+   * jumping to a lead left the keyboard cursor on whatever row happened to be
+   * under it.
+   */
   function open(id: string) {
     setSelectedId(id);
-    setStageFilter((f) => (filtered.some((l) => l.id === id) ? f : "todos"));
-    const i = filtered.findIndex((l) => l.id === id);
-    if (i >= 0) setCursor(i);
+    if (!filtered.some((l) => l.id === id)) setStageFilter("todos");
   }
+
+  // Keep the keyboard cursor on the open lead once the list has settled.
+  useEffect(() => {
+    if (!selectedId) return;
+    const i = filtered.findIndex((l) => l.id === selectedId);
+    if (i >= 0) setCursor(i);
+  }, [selectedId, filtered]);
 
   function dismiss(r: Reco) {
     const next = { ...readDismissed(), [`${r.leadId}-${r.kind}`]: Date.now() + 7 * 86400000 };
@@ -248,13 +324,13 @@ export function Crm() {
 
   return (
     <div>
-      {/* Cabecera: el estado del negocio en una línea */}
+      {/* Cabecera: el estado del negocio */}
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h2 className="font-display text-2xl font-bold tracking-tight">Pipeline</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            {leads.length} lead{leads.length === 1 ? "" : "s"} · {money(pipelineValue)} en juego ·{" "}
-            {money(wonValue)} ganado
+            {leads.length} lead{leads.length === 1 ? "" : "s"} en total
+            {stats.thisWeek > 0 && ` · ${stats.thisWeek} esta semana`}
           </p>
         </div>
         <button
@@ -265,6 +341,35 @@ export function Crm() {
           <Command className="size-3.5" aria-hidden /> Buscar · ⌘K
         </button>
       </div>
+
+      <dl className="mt-5 grid grid-cols-2 gap-px border border-border bg-border sm:grid-cols-3 lg:grid-cols-5">
+        <Stat label="En juego" value={money(stats.pipeline)} note={`${stats.open} abiertos`} />
+        <Stat
+          label="Ganado"
+          value={money(stats.wonValue)}
+          note={`${stats.won} cerrado${stats.won === 1 ? "" : "s"}`}
+          tone="signal"
+        />
+        <Stat
+          label="Conversión"
+          value={stats.winRate === null ? "—" : `${stats.winRate}%`}
+          note={stats.winRate === null ? "nada cerrado aún" : "de los cerrados"}
+        />
+        <Stat
+          label="Sin tocar"
+          value={String(stats.untouched)}
+          note="en Nuevo"
+          tone={stats.untouched > 0 ? "warn" : undefined}
+          onClick={stats.untouched > 0 ? () => setStageFilter("nuevo") : undefined}
+        />
+        <Stat
+          label="Vencidos"
+          value={String(stats.due)}
+          note="seguimiento pasado"
+          tone={stats.due > 0 ? "warn" : undefined}
+          onClick={stats.due > 0 ? () => setStageFilter("pendientes") : undefined}
+        />
+      </dl>
 
       {/* Qué hacer ahora */}
       {recos.length > 0 && (
@@ -443,8 +548,50 @@ export function Crm() {
               onOpenLead={open}
             />
           ) : (
-            <div className="flex h-full min-h-[24rem] items-center justify-center border border-dashed border-border p-8 text-center">
-              <p className="max-w-xs text-sm text-muted-foreground">
+            /* With nothing open this pane used to be an empty dashed box with
+               a sentence in it. The funnel is the one view the list can't
+               give: where the leads are piled up, and where they stop. */
+            <div className="border border-dashed border-border p-6 sm:p-8">
+              <p className="label-mono">Embudo</p>
+              <ul className="mt-5 space-y-2.5">
+                {STAGES.map((s) => {
+                  const n = counts[s];
+                  const share = leads.length ? (n / leads.length) * 100 : 0;
+                  return (
+                    <li key={s}>
+                      <button
+                        type="button"
+                        onClick={() => n > 0 && setStageFilter(s)}
+                        disabled={n === 0}
+                        className="block w-full text-start disabled:cursor-default"
+                      >
+                        <div className="flex items-baseline justify-between gap-3">
+                          <span
+                            className={`text-sm ${n === 0 ? "text-muted-foreground/50" : "text-foreground"}`}
+                          >
+                            {STAGE_LABEL[s]}
+                          </span>
+                          <span className="numeric font-mono text-xs text-muted-foreground">
+                            {n}
+                          </span>
+                        </div>
+                        <div className="mt-1.5 h-1 w-full bg-surface-2">
+                          <div
+                            className={`h-full transition-[width] duration-500 ${
+                              s === "perdido" ? "bg-border" : "bg-signal"
+                            }`}
+                            style={{
+                              width: `${Math.max(share, n > 0 ? 3 : 0)}%`,
+                              transitionTimingFunction: "var(--ease-out)",
+                            }}
+                          />
+                        </div>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+              <p className="mt-7 max-w-sm text-sm text-muted-foreground">
                 Elige un lead para ver su ficha: lo que pidió, lo que se habló, su historial y las
                 preguntas que le puedes hacer al copiloto.
               </p>

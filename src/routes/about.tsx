@@ -88,12 +88,9 @@ function AboutPage() {
                   className="size-full object-cover object-top grayscale transition-all duration-[1200ms] hover:grayscale-0"
                   style={{ transitionTimingFunction: "var(--ease-out)" }}
                 />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 bg-gradient-to-t from-background/90 to-transparent p-4">
-                  <div>
-                    <p className="label-mono text-[9px] text-signal">{tr("about.founder")}</p>
-                    <p className="font-display text-sm font-semibold">{founder}</p>
-                  </div>
-                  <p className="label-mono numeric text-[9px] opacity-60">01 / 01</p>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 to-transparent p-4">
+                  <p className="label-mono text-[9px] text-signal">{tr("about.founder")}</p>
+                  <p className="font-display text-sm font-semibold">{founder}</p>
                 </div>
               </div>
               <img
@@ -183,7 +180,58 @@ function AboutPage() {
           </div>
         </section>
 
+        {/* CONTRAST — the choice the reader is already weighing, named out
+            loud. Two columns so the comparison is read, not argued. */}
+        <section className="border-b border-border">
+          <div
+            className="mx-auto max-w-6xl px-5 sm:px-6"
+            style={{ paddingBlock: "var(--section-y)" }}
+          >
+            <div className="grid gap-8 md:grid-cols-12 md:items-end">
+              <h2 className="display-lg md:col-span-5">{copy.contrastTitle}</h2>
+              <p className="lede md:col-span-6 md:col-start-7">{copy.contrastLede}</p>
+            </div>
+
+            <div className="mt-10 grid gap-x-10 md:mt-16 md:grid-cols-2">
+              <p className="label-mono pb-4 text-muted-foreground/70">{copy.contrastThemLabel}</p>
+              <p className="label-mono hidden pb-4 text-signal md:block">{copy.contrastMeLabel}</p>
+
+              {copy.contrast.map((row, i) => (
+                <motion.div
+                  key={row.me}
+                  initial={reduced ? false : { opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.55, delay: i * 0.08 }}
+                  className="contents"
+                >
+                  <p className="border-t border-border py-6 text-sm leading-relaxed text-muted-foreground/70 line-through decoration-muted-foreground/30">
+                    {row.them}
+                  </p>
+                  <p className="border-border py-6 font-display text-base font-semibold leading-snug md:border-t md:text-lg">
+                    {row.me}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <TrackRecord />
+
+        {/* QUALIFYING CLOSE — who shouldn't write, then who should. */}
+        <section className="border-b border-border bg-surface/30">
+          <div
+            className="mx-auto max-w-3xl px-5 sm:px-6"
+            style={{ paddingBlock: "var(--section-y)" }}
+          >
+            <p className="label-mono">{copy.closeEyebrow}</p>
+            <p className="mt-6 text-base leading-relaxed text-muted-foreground">{copy.closeNot}</p>
+            <p className="mt-6 border-s-2 border-signal ps-5 font-display text-lg font-semibold leading-snug tracking-tight md:text-2xl">
+              {copy.closeYes}
+            </p>
+          </div>
+        </section>
 
         {/* CTA */}
         <section>
@@ -193,15 +241,32 @@ function AboutPage() {
           >
             <h2 className="display-lg mx-auto max-w-[18ch]">{copy.ctaTitle}</h2>
             <p className="lede mx-auto mt-5 text-center">{copy.ctaBody}</p>
-            <Button asChild size="lg" className="mt-9 font-mono text-xs uppercase tracking-widest">
-              <Link to="/" hash="contact">
-                {tr("nav.start")}
-                <ArrowRight
-                  className={`ms-1 size-4 ${dir === "rtl" ? "rotate-180" : ""}`}
-                  aria-hidden
-                />
-              </Link>
-            </Button>
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+              <Button asChild size="lg" className="font-mono text-xs uppercase tracking-widest">
+                <Link to="/" hash="contact">
+                  {tr("nav.start")}
+                  <ArrowRight
+                    className={`ms-1 size-4 ${dir === "rtl" ? "rotate-180" : ""}`}
+                    aria-hidden
+                  />
+                </Link>
+              </Button>
+              {/* The low-commitment door, beside the high-commitment one. */}
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="font-mono text-xs uppercase tracking-widest"
+              >
+                <a
+                  href={waLink(whatsapp, tr("chat.waIntro"))}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp
+                </a>
+              </Button>
+            </div>
           </div>
         </section>
       </main>

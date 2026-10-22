@@ -51,7 +51,10 @@ export function Capabilities({ items, pillars }: { items: DbWeBuild[]; pillars: 
           <h2 className="display-lg mt-4">{tr("pillars.title")}</h2>
         </div>
 
-        <div className="mt-10 md:mt-16">
+        {/* The header is #pillars; the rows below are what the "We build" link
+            points at, so that anchor has a target of its own instead of
+            silently resolving to nothing. */}
+        <div id="we-build" className="mt-10 md:mt-16">
           {pillars.map((pillar, i) => (
             <motion.div
               key={pillar.num}

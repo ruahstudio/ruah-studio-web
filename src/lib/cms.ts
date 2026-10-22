@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation, type AnyKey, type Lang } from "@/i18n";
-import { PROJECTS, PRICING, WE_BUILD } from "@/lib/content";
+import { PRICING, WE_BUILD } from "@/lib/content";
 
 /**
  * Resolves a localized column.
@@ -114,19 +114,29 @@ const STUDIO_I18N: Record<string, AnyKey> = {
   form_subtitle: "studio.formSubtitle",
 };
 
-export const STUDIO_FIELDS: { key: string; label: string; multiline?: boolean }[] = [
+/**
+ * `i18n` marks the fields the visitor reads as a sentence, which therefore
+ * have a column per language. The rest — a phone number, an email, a URL —
+ * are the same in every language and are stored once.
+ */
+export const STUDIO_FIELDS: {
+  key: string;
+  label: string;
+  multiline?: boolean;
+  i18n?: boolean;
+}[] = [
   { key: "site_name", label: "Nombre del estudio" },
-  { key: "hero_eyebrow", label: "Eyebrow del hero" },
-  { key: "hero_title", label: "Título del hero" },
-  { key: "hero_subtitle", label: "Subtítulo del hero", multiline: true },
-  { key: "pillar_1_title", label: "Pilar 01 — título" },
-  { key: "pillar_1_body", label: "Pilar 01 — texto", multiline: true },
-  { key: "pillar_2_title", label: "Pilar 02 — título" },
-  { key: "pillar_2_body", label: "Pilar 02 — texto", multiline: true },
-  { key: "pillar_3_title", label: "Pilar 03 — título" },
-  { key: "pillar_3_body", label: "Pilar 03 — texto", multiline: true },
-  { key: "form_title", label: "Título del formulario" },
-  { key: "form_subtitle", label: "Subtítulo del formulario", multiline: true },
+  { key: "hero_eyebrow", label: "Eyebrow del hero", i18n: true },
+  { key: "hero_title", label: "Título del hero", i18n: true },
+  { key: "hero_subtitle", label: "Subtítulo del hero", multiline: true, i18n: true },
+  { key: "pillar_1_title", label: "Pilar 01 — título", i18n: true },
+  { key: "pillar_1_body", label: "Pilar 01 — texto", multiline: true, i18n: true },
+  { key: "pillar_2_title", label: "Pilar 02 — título", i18n: true },
+  { key: "pillar_2_body", label: "Pilar 02 — texto", multiline: true, i18n: true },
+  { key: "pillar_3_title", label: "Pilar 03 — título", i18n: true },
+  { key: "pillar_3_body", label: "Pilar 03 — texto", multiline: true, i18n: true },
+  { key: "form_title", label: "Título del formulario", i18n: true },
+  { key: "form_subtitle", label: "Subtítulo del formulario", multiline: true, i18n: true },
   { key: "whatsapp", label: "WhatsApp (solo números)" },
   { key: "email", label: "Email de contacto" },
   { key: "founder", label: "Fundador" },
@@ -136,6 +146,17 @@ export const STUDIO_FIELDS: { key: string; label: string; multiline?: boolean }[
   { key: "url_instagram", label: "Instagram (URL completa)" },
 ];
 
+/** The site's languages. English is the base column; the rest carry a suffix. */
+export const CONTENT_LANGS = [
+  { code: "en", label: "EN", suffix: "" },
+  { code: "es", label: "ES", suffix: "_es" },
+  { code: "pt", label: "PT", suffix: "_pt" },
+  { code: "fr", label: "FR", suffix: "_fr" },
+  { code: "de", label: "DE", suffix: "_de" },
+  { code: "it", label: "IT", suffix: "_it" },
+  { code: "ar", label: "AR", suffix: "_ar" },
+] as const;
+
 /**
  * Without Supabase configured (or with empty tables) every content section
  * rendered blank — the site looked half-built. These adapters let the static
@@ -144,18 +165,20 @@ export const STUDIO_FIELDS: { key: string; label: string; multiline?: boolean }[
  */
 type Tr = (key: AnyKey) => string;
 
-function fallbackProjects(tr: Tr): DbProject[] {
-  return PROJECTS.map((p, i) => ({
-    id: `static-${i}`,
-    code: p.num,
-    title: p.name,
-    subtitle: tr(p.kindKey),
-    description: tr(p.descriptionKey),
-    stack: p.stack,
-    prefill: tr(p.prefillKey),
-    link: "",
-    image_url: "",
-    order: i,
+/**
+ * Default questions, used until the admin writes its own.
+ *
+ * They exist for two reasons: an empty FAQ hid the whole section, which made
+ * the header's FAQ link a dead end, and these are questions John answers over
+ * and over in WhatsApp anyway. Every answer is factual — nothing here claims
+ * a client, a metric or a guarantee.
+ */
+function fallbackFaqs(tr: Tr): DbFaq[] {
+  return [1, 2, 3, 4, 5, 6].map((n) => ({
+    id: `static-faq-${n}`,
+    question: tr(`faq.q${n}` as AnyKey),
+    answer: tr(`faq.a${n}` as AnyKey),
+    order: n,
   }));
 }
 
@@ -181,13 +204,19 @@ function fallbackWeBuild(tr: Tr): DbWeBuild[] {
 }
 
 export function useProjects() {
-  const { lang, tr } = useTranslation();
+  const { lang } = useTranslation();
   return useQuery({
     placeholderData: (prev) => prev,
     queryKey: ["cms", "projects", lang],
+    // Empty on the server: the grid renders its "being organised" state
+    // instead of popping in a moment later.
+    initialData: () => [] as DbProject[],
+    initialDataUpdatedAt: 0,
     queryFn: async () => {
       const { data, error } = await supabase.from("projects").select("*").order("order");
-      if (error || !data || data.length === 0) return fallbackProjects(tr);
+      // No rows means no published work yet — the section says so itself
+      // rather than inventing placeholder projects.
+      if (error || !data) return [] as DbProject[];
       return data.map((row) => ({
         ...row,
         title: pick(row, "title", lang),
@@ -203,10 +232,13 @@ export function useFaqs() {
   return useQuery({
     placeholderData: (prev) => prev,
     queryKey: ["cms", "faqs", lang],
+    // Rendered on the server too, so /#faq has a target the moment the page
+    // loads instead of only after the query resolves in the browser.
+    initialData: () => fallbackFaqs(tr),
+    initialDataUpdatedAt: 0,
     queryFn: async () => {
       const { data, error } = await supabase.from("faqs").select("*").order("order");
-      // No static FAQ source, so an empty result simply hides the section.
-      if (error || !data) return [] as DbFaq[];
+      if (error || !data || data.length === 0) return fallbackFaqs(tr);
       return (data ?? []).map((row) => ({
         ...row,
         question: pick(row, "question", lang),
@@ -221,6 +253,9 @@ export function usePricing() {
   return useQuery({
     placeholderData: (prev) => prev,
     queryKey: ["cms", "pricing", lang],
+    // Same reason as the FAQ: /#pricing has to exist in the server HTML.
+    initialData: () => fallbackPricing(tr),
+    initialDataUpdatedAt: 0,
     queryFn: async () => {
       const { data, error } = await supabase.from("pricing").select("*").order("order");
       if (error || !data || data.length === 0) return fallbackPricing(tr);
@@ -238,6 +273,9 @@ export function useWeBuild() {
   return useQuery({
     placeholderData: (prev) => prev,
     queryKey: ["cms", "we_build", lang],
+    // #we-build points at these rows, so they ship with the server HTML.
+    initialData: () => fallbackWeBuild(tr),
+    initialDataUpdatedAt: 0,
     queryFn: async () => {
       const { data, error } = await supabase.from("we_build").select("*").order("order");
       if (error || !data || data.length === 0) return fallbackWeBuild(tr);

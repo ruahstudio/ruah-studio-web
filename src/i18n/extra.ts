@@ -384,6 +384,39 @@ const en = {
 
   // ── cotización adjunta ──
   "wa.quoteFile": "My quote (PDF)",
+
+  "about.readMore": "Read the full story",
+
+  // ── traspaso a WhatsApp ──
+  "wa.opening": "Opening WhatsApp…",
+  "wa.openNow": "Open WhatsApp",
+  "wa.fallback": "WhatsApp didn't open? Use this link.",
+
+  // ── proyectos en preparación · FAQ por defecto · cotización ──
+  "work.soonLabel": "Being organised",
+  "work.soonTitle": "The case studies are on their way.",
+  "work.soonBody":
+    "The work exists — platforms in production, systems running every day. What is missing is writing each one up properly: the problem, the decisions and the result. Rather than posting screenshots with no context, this section stays closed until each case can be read in full.",
+  "work.soonMeta": "Case studies in preparation",
+  "work.soonCta": "Ask about similar work",
+  "faq.q1": "Do you work with small businesses, or only large companies?",
+  "faq.a1": "Any size. What matters is the problem, not the size of the company.",
+  "faq.q2": "How long does a typical project take?",
+  "faq.a2":
+    "It depends on the complexity. A simple tool can be ready in days; custom systems and products need more planning. Scope, deliverables and timeline are agreed before anything is built.",
+  "faq.q3": "What if I don't know exactly what I need?",
+  "faq.a3":
+    "You don't need the solution worked out. Tell me what you want to improve, what problem you're trying to solve, or what you want built. I'll look at the problem and recommend the right path.",
+  "faq.q4": "Can you work on an idea that isn't fully defined yet?",
+  "faq.a4":
+    "Yes. Projects often start exactly there. We begin with the problem, define the solution, build a prototype and grow it into a working product.",
+  "faq.q5": "Do you work remotely, with clients outside the country?",
+  "faq.a5": "Yes. Clients anywhere, fully remote.",
+  "faq.q6": "How is payment handled?",
+  "faq.a6":
+    "Split across the project, agreed in writing before the first line of code. You get a written quote with the scope and the price; no invoice is issued, because Ruah Studio is not yet a registered company.",
+  "prop.signedBy": "Signed by",
+  "prop.validity": "Valid for 30 days from this date.",
 };
 
 export type ExtraKey = keyof typeof en;
@@ -773,6 +806,40 @@ const es: Extra = {
 
   // ── cotización adjunta ──
   "wa.quoteFile": "Mi cotización (PDF)",
+
+  "about.readMore": "Leer la historia completa",
+
+  // ── traspaso a WhatsApp ──
+  "wa.opening": "Abriendo WhatsApp…",
+  "wa.openNow": "Abrir WhatsApp",
+  "wa.fallback": "¿No se abrió WhatsApp? Usa este enlace.",
+
+  // ── proyectos en preparación · FAQ por defecto · cotización ──
+  "work.soonLabel": "Organizando",
+  "work.soonTitle": "Los casos están en camino.",
+  "work.soonBody":
+    "El trabajo existe — plataformas en producción, sistemas funcionando todos los días. Lo que falta es contarlos como se debe: el problema, las decisiones y el resultado. Antes que publicar capturas sueltas sin contexto, esta sección se queda cerrada hasta que cada caso pueda leerse completo.",
+  "work.soonMeta": "Casos en preparación",
+  "work.soonCta": "Pregúntame por algo parecido",
+  "faq.q1": "¿Trabajas con negocios pequeños o solo con empresas grandes?",
+  "faq.a1":
+    "Con negocios de cualquier tamaño. Lo que importa es el problema, no el tamaño de la empresa.",
+  "faq.q2": "¿Cuánto tarda un proyecto típico?",
+  "faq.a2":
+    "Depende de la complejidad. Una herramienta sencilla puede estar lista en pocos días; los sistemas y productos a la medida requieren más planificación. El alcance, los entregables y el plazo se acuerdan antes de empezar a construir.",
+  "faq.q3": "¿Y si no sé exactamente qué necesito?",
+  "faq.a3":
+    "No hace falta que traigas la solución definida. Cuéntame qué quieres mejorar, qué problema estás tratando de resolver o qué quieres construir. Analizo el problema y te recomiendo el camino más adecuado.",
+  "faq.q4": "¿Puedes trabajar sobre una idea que todavía no está definida?",
+  "faq.a4":
+    "Sí. Muchas veces el proyecto empieza justo ahí. Partimos del problema, definimos la solución, construimos un prototipo y lo hacemos crecer hasta un producto funcional.",
+  "faq.q5": "¿Trabajas de forma remota, con clientes fuera del país?",
+  "faq.a5": "Sí. Clientes en cualquier país, completamente remoto.",
+  "faq.q6": "¿Cómo funciona el pago?",
+  "faq.a6":
+    "Repartido a lo largo del proyecto y acordado por escrito antes de la primera línea de código. Recibes una cotización escrita con el alcance y el precio; no se emite factura fiscal, porque Ruah Studio todavía no está constituida como empresa.",
+  "prop.signedBy": "Firmado por",
+  "prop.validity": "Válida 30 días desde esta fecha.",
 };
 
 const pt: Extra = {
@@ -1157,6 +1224,40 @@ const pt: Extra = {
 
   // ── cotización adjunta ──
   "wa.quoteFile": "Meu orçamento (PDF)",
+
+  "about.readMore": "Ler a história completa",
+
+  // ── traspaso a WhatsApp ──
+  "wa.opening": "Abrindo o WhatsApp…",
+  "wa.openNow": "Abrir o WhatsApp",
+  "wa.fallback": "O WhatsApp não abriu? Use este link.",
+
+  // ── proyectos en preparación · FAQ por defecto · cotización ──
+  "work.soonLabel": "Organizando",
+  "work.soonTitle": "Os casos estão a caminho.",
+  "work.soonBody":
+    "O trabalho existe — plataformas em produção, sistemas rodando todos os dias. O que falta é contá-los como merecem: o problema, as decisões e o resultado. Em vez de publicar capturas soltas sem contexto, esta seção fica fechada até que cada caso possa ser lido por inteiro.",
+  "work.soonMeta": "Casos em preparação",
+  "work.soonCta": "Pergunte por algo parecido",
+  "faq.q1": "Você trabalha com negócios pequenos ou só com empresas grandes?",
+  "faq.a1":
+    "Com negócios de qualquer tamanho. O que importa é o problema, não o tamanho da empresa.",
+  "faq.q2": "Quanto tempo leva um projeto típico?",
+  "faq.a2":
+    "Depende da complexidade. Uma ferramenta simples pode ficar pronta em poucos dias; sistemas e produtos sob medida exigem mais planejamento. Escopo, entregas e prazo são combinados antes de começar a construir.",
+  "faq.q3": "E se eu não souber exatamente do que preciso?",
+  "faq.a3":
+    "Você não precisa trazer a solução pronta. Conte o que quer melhorar, que problema está tentando resolver ou o que quer construir. Eu analiso o problema e recomendo o melhor caminho.",
+  "faq.q4": "Dá para trabalhar numa ideia que ainda não está definida?",
+  "faq.a4":
+    "Sim. Muitas vezes o projeto começa exatamente aí. Partimos do problema, definimos a solução, construímos um protótipo e evoluímos até um produto funcional.",
+  "faq.q5": "Você trabalha remotamente, com clientes fora do país?",
+  "faq.a5": "Sim. Clientes em qualquer país, totalmente remoto.",
+  "faq.q6": "Como funciona o pagamento?",
+  "faq.a6":
+    "Dividido ao longo do projeto e combinado por escrito antes da primeira linha de código. Você recebe um orçamento escrito com o escopo e o preço; não há nota fiscal, porque o Ruah Studio ainda não está constituído como empresa.",
+  "prop.signedBy": "Assinado por",
+  "prop.validity": "Válido por 30 dias a partir desta data.",
 };
 
 const fr: Extra = {
@@ -1546,6 +1647,40 @@ const fr: Extra = {
 
   // ── cotización adjunta ──
   "wa.quoteFile": "Mon devis (PDF)",
+
+  "about.readMore": "Lire l'histoire complète",
+
+  // ── traspaso a WhatsApp ──
+  "wa.opening": "Ouverture de WhatsApp…",
+  "wa.openNow": "Ouvrir WhatsApp",
+  "wa.fallback": "WhatsApp ne s'est pas ouvert ? Utilisez ce lien.",
+
+  // ── proyectos en preparación · FAQ por defecto · cotización ──
+  "work.soonLabel": "En préparation",
+  "work.soonTitle": "Les études de cas arrivent.",
+  "work.soonBody":
+    "Le travail existe — des plateformes en production, des systèmes qui tournent chaque jour. Ce qui manque, c'est de les raconter correctement : le problème, les décisions et le résultat. Plutôt que de publier des captures sans contexte, cette section reste fermée jusqu'à ce que chaque cas puisse se lire en entier.",
+  "work.soonMeta": "Études de cas en préparation",
+  "work.soonCta": "Parlons d'un projet similaire",
+  "faq.q1": "Travaillez-vous avec de petites entreprises ou seulement avec de grands groupes ?",
+  "faq.a1":
+    "Avec des entreprises de toute taille. C'est le problème qui compte, pas la taille de la société.",
+  "faq.q2": "Combien de temps prend un projet type ?",
+  "faq.a2":
+    "Cela dépend de la complexité. Un outil simple peut être prêt en quelques jours ; les systèmes et produits sur mesure demandent plus de préparation. Le périmètre, les livrables et le calendrier sont fixés avant de construire quoi que ce soit.",
+  "faq.q3": "Et si je ne sais pas exactement ce dont j'ai besoin ?",
+  "faq.a3":
+    "Vous n'avez pas besoin d'arriver avec la solution. Dites-moi ce que vous voulez améliorer, quel problème vous cherchez à résoudre ou ce que vous voulez construire. J'analyse le problème et je recommande la bonne voie.",
+  "faq.q4": "Pouvez-vous travailler sur une idée encore floue ?",
+  "faq.a4":
+    "Oui. Un projet commence souvent exactement là. On part du problème, on définit la solution, on construit un prototype et on le fait évoluer vers un produit opérationnel.",
+  "faq.q5": "Travaillez-vous à distance, avec des clients à l'étranger ?",
+  "faq.a5": "Oui. Des clients dans n'importe quel pays, entièrement à distance.",
+  "faq.q6": "Comment se passe le paiement ?",
+  "faq.a6":
+    "Réparti sur le projet et convenu par écrit avant la première ligne de code. Vous recevez un devis écrit avec le périmètre et le prix ; aucune facture fiscale n'est émise, car Ruah Studio n'est pas encore une société enregistrée.",
+  "prop.signedBy": "Signé par",
+  "prop.validity": "Valable 30 jours à compter de cette date.",
 };
 
 const de: Extra = {
@@ -1936,6 +2071,39 @@ const de: Extra = {
 
   // ── cotización adjunta ──
   "wa.quoteFile": "Mein Angebot (PDF)",
+
+  "about.readMore": "Die ganze Geschichte lesen",
+
+  // ── traspaso a WhatsApp ──
+  "wa.opening": "WhatsApp wird geöffnet…",
+  "wa.openNow": "WhatsApp öffnen",
+  "wa.fallback": "WhatsApp hat sich nicht geöffnet? Hier entlang.",
+
+  // ── proyectos en preparación · FAQ por defecto · cotización ──
+  "work.soonLabel": "In Arbeit",
+  "work.soonTitle": "Die Fallstudien sind unterwegs.",
+  "work.soonBody":
+    "Die Arbeit gibt es — Plattformen im Produktivbetrieb, Systeme, die jeden Tag laufen. Was fehlt, ist, sie sauber aufzuschreiben: das Problem, die Entscheidungen und das Ergebnis. Statt Screenshots ohne Zusammenhang zu zeigen, bleibt dieser Bereich geschlossen, bis jeder Fall vollständig gelesen werden kann.",
+  "work.soonMeta": "Fallstudien in Vorbereitung",
+  "work.soonCta": "Nach Ähnlichem fragen",
+  "faq.q1": "Arbeiten Sie mit kleinen Unternehmen oder nur mit großen?",
+  "faq.a1": "Mit Unternehmen jeder Größe. Entscheidend ist das Problem, nicht die Größe der Firma.",
+  "faq.q2": "Wie lange dauert ein typisches Projekt?",
+  "faq.a2":
+    "Das hängt von der Komplexität ab. Ein einfaches Werkzeug kann in Tagen fertig sein; maßgeschneiderte Systeme und Produkte brauchen mehr Planung. Umfang, Ergebnisse und Termin werden festgelegt, bevor gebaut wird.",
+  "faq.q3": "Was, wenn ich nicht genau weiß, was ich brauche?",
+  "faq.a3":
+    "Sie müssen die Lösung nicht mitbringen. Sagen Sie mir, was Sie verbessern wollen, welches Problem Sie lösen möchten oder was gebaut werden soll. Ich sehe mir das Problem an und empfehle den passenden Weg.",
+  "faq.q4": "Können Sie an einer Idee arbeiten, die noch nicht ausgereift ist?",
+  "faq.a4":
+    "Ja. Projekte beginnen oft genau dort. Wir starten beim Problem, definieren die Lösung, bauen einen Prototyp und entwickeln ihn zu einem funktionierenden Produkt.",
+  "faq.q5": "Arbeiten Sie remote, mit Kunden im Ausland?",
+  "faq.a5": "Ja. Kunden in jedem Land, vollständig remote.",
+  "faq.q6": "Wie läuft die Bezahlung?",
+  "faq.a6":
+    "Über das Projekt verteilt und schriftlich vereinbart, bevor die erste Zeile Code entsteht. Sie erhalten ein schriftliches Angebot mit Umfang und Preis; eine steuerliche Rechnung wird nicht ausgestellt, da Ruah Studio noch kein eingetragenes Unternehmen ist.",
+  "prop.signedBy": "Unterzeichnet von",
+  "prop.validity": "30 Tage ab diesem Datum gültig.",
 };
 
 const it: Extra = {
@@ -2321,6 +2489,40 @@ const it: Extra = {
 
   // ── cotización adjunta ──
   "wa.quoteFile": "Il mio preventivo (PDF)",
+
+  "about.readMore": "Leggi la storia completa",
+
+  // ── traspaso a WhatsApp ──
+  "wa.opening": "Apertura di WhatsApp…",
+  "wa.openNow": "Apri WhatsApp",
+  "wa.fallback": "WhatsApp non si è aperto? Usa questo link.",
+
+  // ── proyectos en preparación · FAQ por defecto · cotización ──
+  "work.soonLabel": "In preparazione",
+  "work.soonTitle": "I casi studio stanno arrivando.",
+  "work.soonBody":
+    "Il lavoro c'è — piattaforme in produzione, sistemi che girano ogni giorno. Quello che manca è raccontarli come meritano: il problema, le decisioni e il risultato. Invece di pubblicare screenshot senza contesto, questa sezione resta chiusa finché ogni caso non potrà essere letto per intero.",
+  "work.soonMeta": "Casi studio in preparazione",
+  "work.soonCta": "Chiedimi qualcosa di simile",
+  "faq.q1": "Lavori con piccole attività o solo con grandi aziende?",
+  "faq.a1":
+    "Con attività di qualsiasi dimensione. Conta il problema, non la dimensione dell'azienda.",
+  "faq.q2": "Quanto dura un progetto tipico?",
+  "faq.a2":
+    "Dipende dalla complessità. Uno strumento semplice può essere pronto in pochi giorni; sistemi e prodotti su misura richiedono più pianificazione. Perimetro, consegne e tempi si concordano prima di costruire.",
+  "faq.q3": "E se non so esattamente cosa mi serve?",
+  "faq.a3":
+    "Non devi arrivare con la soluzione pronta. Dimmi cosa vuoi migliorare, quale problema stai cercando di risolvere o cosa vuoi costruire. Analizzo il problema e ti consiglio la strada giusta.",
+  "faq.q4": "Puoi lavorare su un'idea non ancora definita?",
+  "faq.a4":
+    "Sì. Spesso il progetto comincia proprio lì. Si parte dal problema, si definisce la soluzione, si costruisce un prototipo e lo si fa crescere fino a un prodotto funzionante.",
+  "faq.q5": "Lavori da remoto, con clienti fuori dal Paese?",
+  "faq.a5": "Sì. Clienti in qualsiasi Paese, completamente da remoto.",
+  "faq.q6": "Come funziona il pagamento?",
+  "faq.a6":
+    "Distribuito lungo il progetto e concordato per iscritto prima della prima riga di codice. Ricevi un preventivo scritto con perimetro e prezzo; non viene emessa fattura fiscale, perché Ruah Studio non è ancora costituita come società.",
+  "prop.signedBy": "Firmato da",
+  "prop.validity": "Valido 30 giorni da questa data.",
 };
 
 const ar: Extra = {
@@ -2693,6 +2895,39 @@ const ar: Extra = {
 
   // ── cotización adjunta ──
   "wa.quoteFile": "عرض السعر (PDF)",
+
+  "about.readMore": "اقرأ القصة كاملة",
+
+  // ── traspaso a WhatsApp ──
+  "wa.opening": "جارٍ فتح واتساب…",
+  "wa.openNow": "افتح واتساب",
+  "wa.fallback": "لم يُفتح واتساب؟ استخدم هذا الرابط.",
+
+  // ── proyectos en preparación · FAQ por defecto · cotización ──
+  "work.soonLabel": "قيد التنظيم",
+  "work.soonTitle": "دراسات الحالة في الطريق.",
+  "work.soonBody":
+    "العمل موجود — منصّات في الإنتاج وأنظمة تعمل كل يوم. ما ينقص هو سردها كما ينبغي: المشكلة، والقرارات، والنتيجة. بدل نشر لقطات شاشة بلا سياق، يبقى هذا القسم مغلقًا حتى تُقرأ كل حالة كاملة.",
+  "work.soonMeta": "دراسات حالة قيد الإعداد",
+  "work.soonCta": "اسأل عن عمل مشابه",
+  "faq.q1": "هل تعمل مع الأعمال الصغيرة أم مع الشركات الكبيرة فقط؟",
+  "faq.a1": "مع الأعمال بكل الأحجام. المهم هو المشكلة، لا حجم الشركة.",
+  "faq.q2": "كم يستغرق المشروع عادةً؟",
+  "faq.a2":
+    "يعتمد على التعقيد. أداة بسيطة قد تجهز خلال أيام؛ أما الأنظمة والمنتجات المخصّصة فتحتاج تخطيطًا أطول. يُتفق على النطاق والتسليمات والمدة قبل بدء البناء.",
+  "faq.q3": "وماذا لو لم أكن أعرف بالضبط ما أحتاج؟",
+  "faq.a3":
+    "لا يلزم أن تأتي بالحل جاهزًا. أخبرني بما تريد تحسينه، أو بالمشكلة التي تحاول حلّها، أو بما تريد بناءه. أدرس المشكلة وأوصي بالمسار المناسب.",
+  "faq.q4": "هل يمكن العمل على فكرة غير مكتملة بعد؟",
+  "faq.a4":
+    "نعم. كثيرًا ما يبدأ المشروع من هناك تحديدًا. نبدأ من المشكلة، نحدّد الحل، نبني نموذجًا أوليًا ثم نطوّره إلى منتج يعمل.",
+  "faq.q5": "هل تعمل عن بُعد مع عملاء خارج البلد؟",
+  "faq.a5": "نعم. عملاء في أي بلد، عن بُعد بالكامل.",
+  "faq.q6": "كيف تتم عملية الدفع؟",
+  "faq.a6":
+    "موزّعة على مراحل المشروع ومتفق عليها كتابةً قبل أول سطر برمجي. تحصل على عرض سعر مكتوب بالنطاق والسعر؛ ولا تصدر فاتورة ضريبية، لأن Ruah Studio لم تُسجَّل كشركة بعد.",
+  "prop.signedBy": "وقّعه",
+  "prop.validity": "صالح 30 يومًا من هذا التاريخ.",
 };
 
 export const EXTRA: Record<Lang, Extra> = { en, es, pt, fr, de, it, ar };

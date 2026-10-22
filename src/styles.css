@@ -316,10 +316,44 @@
   mix-blend-mode: overlay;
 }
 
-html.has-custom-cursor,
-html.has-custom-cursor a,
-html.has-custom-cursor button {
-  cursor: none;
+/* Pointer affordance.
+ *
+ * Tailwind v4's preflight sets `button { cursor: default }`, so every button
+ * on this site showed an arrow instead of a hand — including the ones the
+ * whole page exists for. A few components had patched it one at a time with
+ * `cursor-pointer`; this covers the rest in one place.
+ *
+ * In @layer base so a deliberate `cursor-*` utility still wins, and Radix
+ * menu items keep the `cursor-default` their own styles ask for. */
+@layer base {
+  button:not(:disabled),
+  summary,
+  label[for],
+  [role="button"]:not([aria-disabled="true"]),
+  [role="tab"],
+  [role="switch"],
+  [role="checkbox"],
+  [role="radio"],
+  a[href],
+  select:not(:disabled) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"],
+  select:disabled,
+  input:disabled,
+  textarea:disabled {
+    cursor: not-allowed;
+  }
+
+  /* A dragged thumb should say so. */
+  input[type="range"]:not(:disabled) {
+    cursor: grab;
+  }
+  input[type="range"]:not(:disabled):active {
+    cursor: grabbing;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

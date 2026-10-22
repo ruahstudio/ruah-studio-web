@@ -11,8 +11,8 @@ import {
   type BriefData,
   briefKey,
 } from "@/lib/brief";
-import { composeHandoff, quoteFor, saveLead } from "@/lib/leads";
-import { signQuote, uploadQuote } from "@/lib/quote";
+import { composeHandoff, quoteFor } from "@/lib/leads";
+import { completeHandoff, openHandoffTab, waUrl } from "@/lib/handoff";
 import { GOAL_IDS, cleanGoals, goalLabel, goalsText } from "@/lib/goals";
 import { Rich } from "@/components/site/Rich";
 import { getSession, useSession } from "@/lib/session";
@@ -76,6 +76,9 @@ export function WhatsAppChat({ whatsapp, siteName }: { whatsapp: string; siteNam
     {},
   );
   const [sending, setSending] = useState(false);
+  // Kept so the confirmation can offer the link again: a popup blocker, a
+  // locked-down in-app browser or a closed tab must not cost the hand-off.
+  const [sentUrl, setWaUrl] = useState<string | null>(null);
   const [picked, setPicked] = useState<string[]>([]);
   const [otherGoal, setOtherGoal] = useState("");
 
@@ -184,36 +187,38 @@ export function WhatsAppChat({ whatsapp, siteName }: { whatsapp: string; siteNam
   }
 
   /**
-   * Save the lead, then hand off. The tab is opened inside the click (an
-   * open() after an await is blocked as a popup) and pointed at WhatsApp once
-   * the lead is stored — so John has it in the CRM even if the WhatsApp
-   * message is never sent.
+   * Save the lead, then hand off.
+   *
+   * The tab opens inside the click (an open() after an await is blocked as a
+   * popup) on a holding page that already carries a working WhatsApp link, so
+   * it can never sit on a blank document the way it used to when one of the
+   * network calls failed. completeHandoff owns the rest.
    */
   async function sendToJohn() {
     const { contact: c, errors } = checkContact(contact, tr);
     setContactErrors(errors);
     if (!c) return;
-    const tab = window.open("about:blank", "_blank");
+
+    const tab = openHandoffTab(
+      waUrl(whatsapp, composeHandoff(getSession(), c.name, lang, null)),
+      lang,
+    );
     setSending(true);
     patch({ name: c.name });
 
-    // The quote goes with them: built, uploaded, and linked in the message.
-    // None of this may block the hand-off, so every step can come back null.
-    const file = await uploadQuote(getSession(), lang, siteName, whatsapp);
-    const { error } = await saveLead(getSession(), c, lang, "chat", file?.path ?? null);
-    if (error) console.error("lead insert failed", error);
-    const quoteUrl = file ? await signQuote(getSession().ref, file.path) : null;
-
-    const url = `https://wa.me/${whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(
-      composeHandoff(getSession(), c.name, lang, quoteUrl),
-    )}`;
-    patch({ leadSaved: true });
-    setSending(false);
-    if (tab) {
-      tab.opener = null;
-      tab.location.href = url;
-    } else {
-      window.location.href = url;
+    try {
+      const { url } = await completeHandoff({
+        tab,
+        contact: c,
+        lang,
+        channel: "chat",
+        siteName,
+        whatsapp,
+      });
+      setWaUrl(url);
+    } finally {
+      patch({ leadSaved: true });
+      setSending(false);
     }
   }
 
@@ -498,12 +503,22 @@ export function WhatsAppChat({ whatsapp, siteName }: { whatsapp: string; siteNam
 
               {/* 5. Done */}
               {session.leadSaved && (
-                <div
-                  data-testid="chat-sent"
-                  className="flex items-start gap-2 border border-signal/50 bg-signal/10 p-3 text-sm"
-                >
-                  <Check className="mt-0.5 size-4 shrink-0 text-signal" aria-hidden />
-                  <p>{tr("chat.sent", { name: session.name.split(" ")[0] ?? "" })}</p>
+                <div data-testid="chat-sent" className="space-y-2">
+                  <div className="flex items-start gap-2 border border-signal/50 bg-signal/10 p-3 text-sm">
+                    <Check className="mt-0.5 size-4 shrink-0 text-signal" aria-hidden />
+                    <p>{tr("chat.sent", { name: session.name.split(" ")[0] ?? "" })}</p>
+                  </div>
+                  {sentUrl && (
+                    <a
+                      href={sentUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid="chat-wa-fallback"
+                      className="block text-center font-mono text-[10px] uppercase tracking-widest text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+                    >
+                      {tr("wa.fallback")}
+                    </a>
+                  )}
                 </div>
               )}
             </div>

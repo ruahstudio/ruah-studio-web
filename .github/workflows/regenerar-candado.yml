@@ -1,0 +1,45 @@
+# Regenera package-lock.json en Linux, que es donde construye Cloudflare.
+#
+# Para qué: npm en Windows escribe un candado podado — omite paquetes que sólo
+# existen en Linux — y el "npm ci" de Cloudflare se niega a instalar con él.
+# Cada vez que agregues o quites una dependencia desde tu máquina, corre esto
+# una vez desde la pestaña Actions y deja que GitHub commitee el candado bueno.
+name: Regenerar candado
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  candado:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+
+      - name: Reconstruir el candado
+        run: |
+          rm -f package-lock.json
+          npm install --no-audit --no-fund
+
+      - name: Comprobar que npm ci lo acepta
+        run: |
+          rm -rf node_modules
+          npm ci --no-audit --no-fund
+
+      - name: Commitear si cambió
+        run: |
+          if git diff --quiet -- package-lock.json; then
+            echo "El candado ya estaba bien; no hay nada que commitear."
+            exit 0
+          fi
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add package-lock.json
+          git commit -m "Regenerar candado de dependencias en Linux"
+          git push

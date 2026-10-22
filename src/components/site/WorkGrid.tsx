@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { projectSlug } from "@/lib/slug";
 import type { DbProject } from "@/lib/cms";
@@ -30,6 +30,68 @@ function aspectFor(span: string) {
   return "aspect-[4/3]";
 }
 
+/**
+ * Shown while there are no published case studies.
+ *
+ * It says the work exists and is being written up, rather than pretending the
+ * section isn't there — a studio page with a silent gap where the portfolio
+ * should be reads worse than one that explains itself. The slow rotating mark
+ * is the "being organised" signal; it carries no claim of its own.
+ */
+function ComingSoon({ onPrefill }: { onPrefill: (prefill?: string) => void }) {
+  const { tr } = useTranslation();
+  const reduced = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={reduced ? false : { opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="relative mt-10 overflow-hidden border border-border bg-card md:mt-16"
+    >
+      <div className="grid-lines pointer-events-none absolute inset-0 opacity-30" />
+
+      <div className="relative grid gap-8 p-8 md:grid-cols-12 md:items-center md:gap-12 md:p-14">
+        {/* The mark: a slow, patient rotation — work in progress, not an error */}
+        <div className="md:col-span-3">
+          <span className="relative inline-flex size-20 items-center justify-center md:size-24">
+            <span className="absolute inset-0 rounded-full border border-signal/25" />
+            <motion.span
+              aria-hidden
+              className="absolute inset-0 flex items-center justify-center text-signal"
+              animate={reduced ? {} : { rotate: 360 }}
+              transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
+            >
+              <LoaderCircle className="size-20 md:size-24" strokeWidth={0.6} />
+            </motion.span>
+            <span className="size-2 rounded-full bg-signal" />
+          </span>
+          <p className="label-mono mt-5 text-signal">{tr("work.soonLabel")}</p>
+        </div>
+
+        <div className="md:col-span-9">
+          <h3 className="display-md max-w-[20ch]">{tr("work.soonTitle")}</h3>
+          <p className="mt-5 max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
+            {tr("work.soonBody")}
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Button
+              size="sm"
+              variant="outline"
+              className="font-mono text-[11px] uppercase tracking-widest"
+              onClick={() => onPrefill()}
+            >
+              {tr("work.soonCta")}
+            </Button>
+            <span className="label-mono text-muted-foreground/70">{tr("work.soonMeta")}</span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export function WorkGrid({
   projects,
   eyebrow,
@@ -57,6 +119,8 @@ export function WorkGrid({
           </div>
           <p className="lede md:col-span-5">{body}</p>
         </div>
+
+        {projects.length === 0 && <ComingSoon onPrefill={onPrefill} />}
 
         <div className="mt-10 grid gap-x-6 gap-y-12 md:mt-16 md:grid-cols-12 md:gap-y-16">
           {projects.map((p, i) => {
