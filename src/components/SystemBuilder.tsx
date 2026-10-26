@@ -282,7 +282,7 @@ export function SystemBuilder() {
                           {hint(m.id)}
                         </span>
                         <span
-                          className="numeric mt-1 font-mono text-[10px] text-muted-foreground/70"
+                          className="numeric mt-1 font-mono text-[10px] text-muted-foreground"
                           dir="ltr"
                         >
                           +${m.price}
@@ -325,6 +325,8 @@ export function SystemBuilder() {
             <p className="label-mono">{tr("builder.step3")}</p>
             <Slider
               className="mt-6"
+              label={tr("builder.step3")}
+              valueText={scaleLabel}
               value={scale}
               onValueChange={(v) => {
                 setScale(v);

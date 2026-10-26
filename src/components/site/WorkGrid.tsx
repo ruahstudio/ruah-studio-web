@@ -84,7 +84,7 @@ function ComingSoon({ onPrefill }: { onPrefill: (prefill?: string) => void }) {
             >
               {tr("work.soonCta")}
             </Button>
-            <span className="label-mono text-muted-foreground/70">{tr("work.soonMeta")}</span>
+            <span className="label-mono text-muted-foreground">{tr("work.soonMeta")}</span>
           </div>
         </div>
       </div>

@@ -535,7 +535,7 @@ export function WhatsAppChat({ whatsapp, siteName }: { whatsapp: string; siteNam
                   placeholder={tr("chat.placeholder")}
                   aria-label={tr("chat.placeholder")}
                   maxLength={700}
-                  className="max-h-28 min-h-[2.5rem] flex-1 resize-none bg-surface px-3 py-2 text-sm outline-none placeholder:text-muted-foreground/70 focus-visible:ring-1 focus-visible:ring-signal"
+                  className="max-h-28 min-h-[2.5rem] flex-1 resize-none bg-surface px-3 py-2 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-signal"
                 />
                 <button
                   type="button"
