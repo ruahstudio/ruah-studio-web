@@ -323,8 +323,7 @@
  * whole page exists for. A few components had patched it one at a time with
  * `cursor-pointer`; this covers the rest in one place.
  *
- * In @layer base so a deliberate `cursor-*` utility still wins, and Radix
- * menu items keep the `cursor-default` their own styles ask for. */
+ * In @layer base so a deliberate `cursor-*` utility still wins. */
 @layer base {
   button:not(:disabled),
   summary,
@@ -354,6 +353,23 @@
   input[type="range"]:not(:disabled):active {
     cursor: grabbing;
   }
+}
+
+/* Menu items: the hand, over shadcn's own `cursor-default`.
+ *
+ * Every shadcn menu primitive ships with `cursor-default` — seventeen places
+ * across dropdown-menu, context-menu, menubar, select and command. That is a
+ * desktop-app convention, and on a web page it is simply wrong: the language
+ * picker offered seven choices and all seven showed an arrow.
+ *
+ * Deliberately UNLAYERED, so it beats the `cursor-default` utility without
+ * editing (and re-editing, every time shadcn is regenerated) those files.
+ * Disabled items are excluded so they still read as disabled. */
+[role="menuitem"]:not([data-disabled]):not([aria-disabled="true"]),
+[role="menuitemradio"]:not([data-disabled]):not([aria-disabled="true"]),
+[role="menuitemcheckbox"]:not([data-disabled]):not([aria-disabled="true"]),
+[role="option"]:not([data-disabled]):not([aria-disabled="true"]) {
+  cursor: pointer;
 }
 
 @media (prefers-reduced-motion: reduce) {
