@@ -150,7 +150,7 @@ export function ContactFields({
         value={values.instagram}
         onChange={set("instagram")}
         onBlur={blur("instagram")}
-        placeholder="@tunegocio"
+        placeholder={tr("form.instagramPlaceholder")}
         error={igErr}
         ok={ig.ok && ig.handle ? `instagram.com/${ig.handle}` : undefined}
         compact={compact}
