@@ -118,7 +118,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap",
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "canonical", href: SITE_URL },
+      // No canonical here on purpose: a canonical declared on the root applies
+      // to every route, so /about was served the home page's URL as its
+      // canonical AND its own — two tags, which Google treats as none. Each
+      // route declares its own absolute canonical instead.
       // Absolute URLs, and ?lang= is now honoured by detectLang() so each
       // alternate really does serve that language.
       ...LANGS.map((code) => ({

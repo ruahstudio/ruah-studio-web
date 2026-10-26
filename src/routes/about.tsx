@@ -11,8 +11,20 @@ import { useStudio, waLink } from "@/lib/cms";
 import { useTranslation } from "@/i18n";
 import { aboutCopy } from "@/lib/about-content";
 import { SITE } from "@/lib/content";
+import { SITE_NAME, absoluteUrl } from "@/lib/seo";
 
-export const Route = createFileRoute("/about")({ component: AboutPage });
+export const Route = createFileRoute("/about")({
+  head: () => ({
+    meta: [
+      { title: `${SITE_NAME} — John Salazar` },
+      { property: "og:url", content: absoluteUrl("/about") },
+      { property: "og:type", content: "profile" },
+    ],
+    // Its own canonical: the root no longer declares one for every route.
+    links: [{ rel: "canonical", href: absoluteUrl("/about") }],
+  }),
+  component: AboutPage,
+});
 
 function AboutPage() {
   const { t } = useStudio();
@@ -193,7 +205,7 @@ function AboutPage() {
             </div>
 
             <div className="mt-10 grid gap-x-10 md:mt-16 md:grid-cols-2">
-              <p className="label-mono pb-4 text-muted-foreground/70">{copy.contrastThemLabel}</p>
+              <p className="label-mono pb-4 text-muted-foreground">{copy.contrastThemLabel}</p>
               <p className="label-mono hidden pb-4 text-signal md:block">{copy.contrastMeLabel}</p>
 
               {copy.contrast.map((row, i) => (
@@ -205,7 +217,7 @@ function AboutPage() {
                   transition={{ duration: 0.55, delay: i * 0.08 }}
                   className="contents"
                 >
-                  <p className="border-t border-border py-6 text-sm leading-relaxed text-muted-foreground/70 line-through decoration-muted-foreground/30">
+                  <p className="border-t border-border py-6 text-sm leading-relaxed text-muted-foreground line-through decoration-muted-foreground/40">
                     {row.them}
                   </p>
                   <p className="border-border py-6 font-display text-base font-semibold leading-snug md:border-t md:text-lg">
@@ -243,8 +255,17 @@ function AboutPage() {
             <p className="lede mx-auto mt-5 text-center">{copy.ctaBody}</p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <Button asChild size="lg" className="font-mono text-xs uppercase tracking-widest">
+                {/* "Start" alone says nothing out of context — to a screen
+                    reader listing the page's links, or to a crawler. The
+                    visible word stays short; the accessible name says where
+                    it goes, and still contains the visible text. */}
                 <Link to="/" hash="contact">
-                  {tr("nav.start")}
+                  {/* "Start" on its own is one of the generic link texts
+                      search engines and screen readers both flag — it says
+                      nothing when read out of context. The closing CTA of the
+                      page should name the action anyway. The arrow comes from
+                      the icon below, so it is stripped from the string. */}
+                  {tr("hero.primaryCta").replace(/\s*→\s*$/, "")}
                   <ArrowRight
                     className={`ms-1 size-4 ${dir === "rtl" ? "rotate-180" : ""}`}
                     aria-hidden

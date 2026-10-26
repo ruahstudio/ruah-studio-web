@@ -17,4 +17,4 @@ Allow: /
 Disallow: /admin
 Disallow: /auth
 
-Sitemap: https://ruahstudio.com/sitemap.xml
+Sitemap: https://ruah-studio-web.pages.dev/sitemap.xml

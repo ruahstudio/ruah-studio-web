@@ -24,9 +24,7 @@ const ThemeContext = createContext<Ctx>({ theme: "dark", setTheme: () => {}, tog
 export const THEME_INIT_SCRIPT = `(function(){try{
 var s=localStorage.getItem("${STORAGE_KEY}");
 var d=s?s==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;
-var r=document.documentElement;
-r.classList.toggle("dark",d);
-r.style.colorScheme=d?"dark":"only light";
+document.documentElement.classList.toggle("dark",d);
 var m=document.querySelector('meta[name="theme-color"]');
 if(m)m.setAttribute("content",d?"${THEME_COLOR.dark}":"${THEME_COLOR.light}");
 }catch(e){document.documentElement.classList.add("dark");}})();`;
@@ -35,9 +33,11 @@ function apply(theme: Theme) {
   const root = document.documentElement;
   const dark = theme === "dark";
   root.classList.toggle("dark", dark);
-  // "only light" — not "light" — is what actually stops Chrome for Android
-  // from force-darkening the page. See the note in styles.css.
-  root.style.colorScheme = dark ? "dark" : "only light";
+  // `color-scheme` is set in styles.css off this same class — including the
+  // "only light" that stops Chrome for Android force-darkening the page.
+  // Writing it here as an inline style too did nothing except put a `style`
+  // attribute on <html> that the server had not rendered, which is exactly
+  // what React was reporting as a hydration mismatch on every page load.
   document
     .querySelector('meta[name="theme-color"]')
     ?.setAttribute("content", dark ? THEME_COLOR.dark : THEME_COLOR.light);
