@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "@/i18n";
+import type { ExtraKey } from "@/i18n/extra";
 
 /**
  * Verifiable track record: real roles, real dates, real institutions.
@@ -9,64 +10,69 @@ import { useTranslation } from "@/i18n";
  * LinkedIn and can be checked. Stated as fact, without embellishment.
  */
 
+/**
+ * The entries carry translation KEYS, not finished text.
+ *
+ * Roles, locations, achievements and skill tags were written here as English
+ * sentences, so John's whole CV — the section that makes a studio credible —
+ * stayed in English for a visitor reading in Spanish, Portuguese, French,
+ * German, Italian or Arabic.
+ *
+ * Dates, institution names and the studio's own name stay literal: they are
+ * the same in every language, and translating an institution's name would
+ * make it unverifiable, which is the one thing this section cannot afford.
+ */
 type Entry = {
+  /** Literal: dates read the same everywhere. */
   period: string;
-  role: string;
+  /** Literal: the institution, as it is actually called. */
   org: string;
-  location: string;
-  points: string[];
-  tags: string[];
+  roleKey: ExtraKey;
+  locationKey: ExtraKey;
+  pointKeys: ExtraKey[];
+  tagKeys: ExtraKey[];
 };
 
 const EXPERIENCE: Entry[] = [
   {
     period: "2026 —",
-    role: "Founder & Full-Stack Developer",
     org: "Ruah Studio",
-    location: "Nueva Esparta, Venezuela · Remote",
-    points: [
-      "Full product lifecycle: problem, architecture, frontend, backend, data, integrations, AI workflows, security, deployment and documentation.",
-      "Web applications, AI-powered workflows, business process automation, dashboards and internal systems.",
-    ],
-    tags: ["Full-stack", "Applied AI", "Automation", "System architecture"],
+    roleKey: "cv.exp1.role",
+    locationKey: "cv.exp1.loc",
+    pointKeys: ["cv.exp1.p1", "cv.exp1.p2"],
+    tagKeys: ["cv.exp1.g1", "cv.exp1.g2", "cv.exp1.g3", "cv.exp1.g4"],
   },
   {
     period: "2025 — 2026",
-    role: "Multidisciplinary Project Leader",
     org: "VitalCare · Universidad de Oriente",
-    location: "Nueva Esparta, Venezuela · Hybrid",
-    points: [
-      "Led a multidisciplinary team building a low-cost autonomous patient monitoring system for outpatient clinics.",
-      "Real-time monitoring of oxygen saturation, heart rate, respiratory rate, temperature and ECG signals, with wireless connectivity, early-warning alerts and energy backup.",
-      "Coordinated research, hardware and software integration, and the technical proposal end to end.",
-    ],
-    tags: ["Embedded systems", "IoT", "Medical sensing", "Team leadership"],
+    roleKey: "cv.exp2.role",
+    locationKey: "cv.exp2.loc",
+    pointKeys: ["cv.exp2.p1", "cv.exp2.p2", "cv.exp2.p3"],
+    tagKeys: ["cv.exp2.g1", "cv.exp2.g2", "cv.exp2.g3", "cv.exp2.g4"],
   },
 ];
 
 const EDUCATION: Entry[] = [
   {
     period: "2023 — 2028",
-    role: "B.Sc. Computer Science",
     org: "Universidad de Oriente",
-    location: "Grade 8.44 / 10",
-    points: [
-      "Section Leader every semester. Robotics Group project lead. Community service.",
-      "Coursework in C, C++ and C#, object-oriented programming, algorithms, numerical methods and linear programming.",
-    ],
-    tags: ["Algorithms", "Mathematics", "Databases", "Computer systems"],
+    roleKey: "cv.edu1.role",
+    locationKey: "cv.edu1.loc",
+    pointKeys: ["cv.edu1.p1", "cv.edu1.p2"],
+    tagKeys: ["cv.edu1.g1", "cv.edu1.g2", "cv.edu1.g3", "cv.edu1.g4"],
   },
 ];
 
 function Timeline({ entries, label }: { entries: Entry[]; label: string }) {
   const reduced = useReducedMotion();
+  const { tr } = useTranslation();
   return (
     <div>
       <p className="label-mono">{label}</p>
       <div className="mt-6">
         {entries.map((e, i) => (
           <motion.article
-            key={e.role}
+            key={e.roleKey}
             initial={reduced ? false : { opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -78,27 +84,29 @@ function Timeline({ entries, label }: { entries: Entry[]; label: string }) {
             </p>
 
             <div className="md:col-span-9">
-              <h3 className="font-display text-lg font-bold tracking-tight">{e.role}</h3>
+              <h3 className="font-display text-lg font-bold tracking-tight">{tr(e.roleKey)}</h3>
               <p className="mt-0.5 font-mono text-xs text-signal">{e.org}</p>
-              <p className="mt-0.5 font-mono text-[11px] text-muted-foreground">{e.location}</p>
+              <p className="mt-0.5 font-mono text-[11px] text-muted-foreground">
+                {tr(e.locationKey)}
+              </p>
 
               <ul className="mt-4 space-y-2">
-                {e.points.map((pt) => (
+                {e.pointKeys.map((key) => (
                   <li
-                    key={pt}
+                    key={key}
                     className="flex gap-2.5 text-sm leading-relaxed text-muted-foreground"
                   >
                     <span className="mt-2 size-1 shrink-0 rounded-full bg-signal/60" aria-hidden />
-                    <span>{pt}</span>
+                    <span>{tr(key)}</span>
                   </li>
                 ))}
               </ul>
 
               <ul className="mt-4 flex flex-wrap gap-x-1.5 gap-y-2">
-                {e.tags.map((t, j) => (
-                  <li key={t} className="font-mono text-[11px] text-foreground/70">
-                    {t}
-                    {j < e.tags.length - 1 && (
+                {e.tagKeys.map((key, j) => (
+                  <li key={key} className="font-mono text-[11px] text-foreground/70">
+                    {tr(key)}
+                    {j < e.tagKeys.length - 1 && (
                       <span className="ms-1.5 text-signal/40" aria-hidden>
                         /
                       </span>

@@ -517,7 +517,7 @@ const it: Dict = {
   "nav.faq": "FAQ",
   "nav.start": "Inizia",
   "nav.language": "Lingua",
-  "hero.primaryCta": "Avvia un progetto →",
+  "hero.primaryCta": "Inizia un progetto →",
   "hero.secondaryCta": "Vedi i progetti",
   "stats.platforms": "Piattaforme costruite",
   "stats.pillars": "Pilastri di servizio",
