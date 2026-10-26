@@ -40,11 +40,23 @@ export type FaqItem = { q: string; a: string };
 export type Testimonial = { name: string; business: string; quote: string; avatar: string };
 export type SelectOption = { value: string; label: string };
 
+/**
+ * The contact address is a live one, not an aspiration.
+ *
+ * It was `hola@ruahstudio.com` — a domain the studio does not own — so every
+ * visitor who emailed from the contact section got a bounce, and nobody found
+ * out. It reads from `VITE_CONTACT_EMAIL`, so the day weareruahstudio.com is
+ * set up this becomes a Cloudflare variable rather than a code change.
+ */
+const CONTACT_EMAIL =
+  (typeof import.meta !== "undefined" && import.meta.env?.["VITE_CONTACT_EMAIL"]) ||
+  "john.ruahstudio@gmail.com";
+
 export const SITE = {
   name: "Ruah Studio",
   tagline: "AI • Software • Automation • Digital Systems",
   whatsapp: "584222010041",
-  email: "hola@ruahstudio.com",
+  email: CONTACT_EMAIL,
   founder: "John Salazar",
   seo: {
     title: "Ruah Studio — From idea to working product.",

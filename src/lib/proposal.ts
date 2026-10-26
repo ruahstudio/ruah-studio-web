@@ -1,6 +1,7 @@
 import { jsPDF } from "jspdf";
 import { translate, type Lang } from "@/i18n";
 import { plainText } from "@/lib/markdown";
+import { SITE } from "@/lib/content";
 import { SIGNATURE_PNG, SIGNATURE_SIZE } from "@/assets/signature-data";
 
 const INK = [18, 20, 26] as const;
@@ -606,7 +607,7 @@ export function generateBriefPdf(input: BriefInput) {
   doc.setTextColor(MUTED[0], MUTED[1], MUTED[2]);
   doc.text(
     `WhatsApp +${(input.whatsapp ?? "584222010041").replace(/\D/g, "")}  ·  ${
-      input.email ?? "hola@ruahstudio.com"
+      input.email || SITE.email
     }`,
     M,
     y + 15,
