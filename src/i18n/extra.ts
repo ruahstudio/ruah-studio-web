@@ -385,6 +385,25 @@ const en = {
   // ── cotización adjunta ──
   "wa.quoteFile": "My quote (PDF)",
 
+  // ── trayectoria según el Kit ──
+  "cv.present": "Present",
+  "cv.exp0.role": "Marketing Technology Developer · Freelance",
+  "cv.exp0.org": "Digital marketing agency (confidential client)",
+  "cv.exp0.loc": "Remote",
+  "cv.exp0.p1":
+    "Built and maintain the sales-funnel infrastructure for 11 brands across 11 domains in 7 languages on Cloudflare Pages, with 260K+ visits in the last 90 days.",
+  "cv.exp0.p2":
+    "Developed a custom analytics system (Cloudflare Worker + real-time dashboard) that replaced third-party tools: per-brand traffic, funnel steps, device and in-app browser breakdown.",
+  "cv.exp0.p3":
+    "Migrated DNS and deployments to Cloudflare; built the agency website with i18n and transactional email.",
+  "cv.exp0.p4": "Designed AI prompt systems for video and image production.",
+  "cv.exp0.g1": "Cloudflare",
+  "cv.exp0.g2": "Analytics",
+  "cv.exp0.g3": "Internationalisation",
+  "cv.exp0.g4": "Sales funnels",
+  "cv.exp1.p3":
+    "RUAH Core: one customer identity shared across Studio, Cookies and Food through signed, deduplicated events.",
+
   // ── propuesta de valor · trayectoria ──
   "vs.inc1.t": "Discovery",
   "vs.inc1.b": "We find the actual bottleneck before writing code.",
@@ -421,11 +440,11 @@ const en = {
   "vs.care5": "Backups where applicable",
   "vs.care6": "Direct technical contact",
   "cv.exp1.role": "Founder & Full-Stack Developer",
-  "cv.exp1.loc": "Nueva Esparta, Venezuela · Remote",
+  "cv.exp1.loc": "Isla de Margarita, Venezuela · Remote",
   "cv.exp1.p1":
-    "Full product lifecycle: problem, architecture, frontend, backend, data, integrations, AI workflows, security, deployment and documentation.",
+    "Studio platform: a 7-language site with an AI assistant that qualifies leads and produces quotes, connected to an agentic CRM where AI proposes and a human approves. Built and tested; preparing for launch.",
   "cv.exp1.p2":
-    "Web applications, AI-powered workflows, business process automation, dashboards and internal systems.",
+    "RUAH Cookies: an e-commerce MVP in Next.js 16 and PostgreSQL with local mobile payments, live exchange rates, and kitchen and inventory modules; 120+ automated tests.",
   "cv.exp1.g1": "Full-stack",
   "cv.exp1.g2": "Applied AI",
   "cv.exp1.g3": "Automation",
@@ -433,20 +452,20 @@ const en = {
   "cv.exp2.role": "Multidisciplinary Project Leader",
   "cv.exp2.loc": "Nueva Esparta, Venezuela · Hybrid",
   "cv.exp2.p1":
-    "Led a multidisciplinary team building a low-cost autonomous patient monitoring system for outpatient clinics.",
+    "Led a low-cost patient-monitoring system for public outpatient clinics in Nueva Esparta, with early alerts.",
   "cv.exp2.p2":
-    "Real-time monitoring of oxygen saturation, heart rate, respiratory rate, temperature and ECG signals, with wireless connectivity, early-warning alerts and energy backup.",
-  "cv.exp2.p3":
-    "Coordinated research, hardware and software integration, and the technical proposal end to end.",
+    "Blood pressure, oxygen saturation, heart rate, respiratory rate, temperature and ECG signals, over ESP32, MQTT, REST and JWT.",
+  "cv.exp2.p3": "Coordinated research, prototyping and hardware–software integration end to end.",
   "cv.exp2.g1": "Embedded systems",
   "cv.exp2.g2": "IoT",
   "cv.exp2.g3": "Medical sensing",
   "cv.exp2.g4": "Team leadership",
   "cv.edu1.role": "B.Sc. Computer Science",
-  "cv.edu1.loc": "Grade 8.44 / 10",
-  "cv.edu1.p1": "Section Leader every semester. Robotics Group project lead. Community service.",
+  "cv.edu1.loc": "GPA 8.44 / 10",
+  "cv.edu1.p1":
+    "Section Leader every semester. Member of the UDO Robotics Group. Community service.",
   "cv.edu1.p2":
-    "Coursework in C, C++ and C#, object-oriented programming, algorithms, numerical methods and linear programming.",
+    "Engineering thesis in progress: an AI-assisted ambulatory ECG wearable. Research prototype, not a commercial medical device.",
   "cv.edu1.g1": "Algorithms",
   "cv.edu1.g2": "Mathematics",
   "cv.edu1.g3": "Databases",
@@ -875,6 +894,25 @@ const es: Extra = {
   // ── cotización adjunta ──
   "wa.quoteFile": "Mi cotización (PDF)",
 
+  // ── trayectoria según el Kit ──
+  "cv.present": "Actualidad",
+  "cv.exp0.role": "Desarrollador de tecnología de marketing · Freelance",
+  "cv.exp0.org": "Agencia de marketing digital (cliente confidencial)",
+  "cv.exp0.loc": "Remoto",
+  "cv.exp0.p1":
+    "Construí y mantengo la infraestructura de embudos de venta de 11 marcas en 11 dominios y 7 idiomas sobre Cloudflare Pages, con más de 260.000 visitas en los últimos 90 días.",
+  "cv.exp0.p2":
+    "Desarrollé un sistema de analítica propio (Cloudflare Worker y panel en tiempo real) que reemplazó a las herramientas de terceros: tráfico por marca, pasos del embudo, dispositivos y navegadores dentro de aplicaciones.",
+  "cv.exp0.p3":
+    "Migré el DNS y los despliegues a Cloudflare; construí el sitio de la agencia con soporte multiidioma y correo transaccional.",
+  "cv.exp0.p4": "Diseñé sistemas de prompts con IA para producción de video e imagen.",
+  "cv.exp0.g1": "Cloudflare",
+  "cv.exp0.g2": "Analítica",
+  "cv.exp0.g3": "Internacionalización",
+  "cv.exp0.g4": "Embudos de venta",
+  "cv.exp1.p3":
+    "RUAH Core: una sola identidad de cliente compartida entre Studio, Cookies y Food mediante eventos firmados y sin duplicados.",
+
   // ── propuesta de valor · trayectoria ──
   "vs.inc1.t": "Diagnóstico",
   "vs.inc1.b": "Encontramos el cuello de botella real antes de escribir código.",
@@ -911,11 +949,11 @@ const es: Extra = {
   "vs.care5": "Copias de seguridad donde aplique",
   "vs.care6": "Contacto técnico directo",
   "cv.exp1.role": "Fundador y desarrollador full-stack",
-  "cv.exp1.loc": "Nueva Esparta, Venezuela · Remoto",
+  "cv.exp1.loc": "Isla de Margarita, Venezuela · Remoto",
   "cv.exp1.p1":
-    "Ciclo completo del producto: problema, arquitectura, frontend, backend, datos, integraciones, flujos con IA, seguridad, despliegue y documentación.",
+    "Plataforma del estudio: un sitio en 7 idiomas con un asistente de IA que califica interesados y arma cotizaciones, conectado a un CRM agéntico donde la IA propone y una persona aprueba. Construida y probada; preparando el lanzamiento.",
   "cv.exp1.p2":
-    "Aplicaciones web, flujos de trabajo con IA, automatización de procesos de negocio, paneles y sistemas internos.",
+    "RUAH Cookies: un MVP de comercio electrónico en Next.js 16 y PostgreSQL con pago móvil local, tasa de cambio en vivo y módulos de cocina e inventario; más de 120 pruebas automatizadas.",
   "cv.exp1.g1": "Full-stack",
   "cv.exp1.g2": "IA aplicada",
   "cv.exp1.g3": "Automatización",
@@ -923,11 +961,11 @@ const es: Extra = {
   "cv.exp2.role": "Líder de proyecto multidisciplinario",
   "cv.exp2.loc": "Nueva Esparta, Venezuela · Híbrido",
   "cv.exp2.p1":
-    "Dirigí un equipo multidisciplinario que construyó un sistema autónomo y de bajo costo para monitorear pacientes en consultas ambulatorias.",
+    "Dirigí un sistema de monitoreo de pacientes de bajo costo, con alertas tempranas, para consultas ambulatorias públicas en Nueva Esparta.",
   "cv.exp2.p2":
-    "Monitoreo en tiempo real de saturación de oxígeno, frecuencia cardíaca, frecuencia respiratoria, temperatura y señales de ECG, con conexión inalámbrica, alertas tempranas y respaldo de energía.",
+    "Presión arterial, saturación de oxígeno, frecuencia cardíaca, frecuencia respiratoria, temperatura y señales de ECG, sobre ESP32, MQTT, REST y JWT.",
   "cv.exp2.p3":
-    "Coordiné la investigación, la integración de hardware y software, y la propuesta técnica de punta a punta.",
+    "Coordiné la investigación, el prototipado y la integración de hardware y software de punta a punta.",
   "cv.exp2.g1": "Sistemas embebidos",
   "cv.exp2.g2": "IoT",
   "cv.exp2.g3": "Sensórica médica",
@@ -935,9 +973,9 @@ const es: Extra = {
   "cv.edu1.role": "Lic. en Informática",
   "cv.edu1.loc": "Promedio 8,44 / 10",
   "cv.edu1.p1":
-    "Delegado de sección todos los semestres. Líder de proyecto en el Grupo de Robótica. Servicio comunitario.",
+    "Delegado de sección todos los semestres. Miembro del Grupo de Robótica de la UDO. Servicio comunitario.",
   "cv.edu1.p2":
-    "Asignaturas de C, C++ y C#, programación orientada a objetos, algoritmos, métodos numéricos y programación lineal.",
+    "Tesis de ingeniería en curso: un wearable de ECG ambulatorio asistido por IA. Prototipo de investigación, no un dispositivo médico comercial.",
   "cv.edu1.g1": "Algoritmos",
   "cv.edu1.g2": "Matemáticas",
   "cv.edu1.g3": "Bases de datos",
@@ -1362,6 +1400,25 @@ const pt: Extra = {
   // ── cotización adjunta ──
   "wa.quoteFile": "Meu orçamento (PDF)",
 
+  // ── trayectoria según el Kit ──
+  "cv.present": "Atualidade",
+  "cv.exp0.role": "Desenvolvedor de tecnologia de marketing · Freelance",
+  "cv.exp0.org": "Agência de marketing digital (cliente confidencial)",
+  "cv.exp0.loc": "Remoto",
+  "cv.exp0.p1":
+    "Construí e mantenho a infraestrutura de funis de venda de 11 marcas em 11 domínios e 7 idiomas na Cloudflare Pages, com mais de 260 mil visitas nos últimos 90 dias.",
+  "cv.exp0.p2":
+    "Desenvolvi um sistema de analytics próprio (Cloudflare Worker e painel em tempo real) que substituiu ferramentas de terceiros: tráfego por marca, etapas do funil, dispositivos e navegadores dentro de aplicativos.",
+  "cv.exp0.p3":
+    "Migrei o DNS e as implantações para a Cloudflare; construí o site da agência com suporte multi-idioma e e-mail transacional.",
+  "cv.exp0.p4": "Desenhei sistemas de prompts com IA para produção de vídeo e imagem.",
+  "cv.exp0.g1": "Cloudflare",
+  "cv.exp0.g2": "Analytics",
+  "cv.exp0.g3": "Internacionalização",
+  "cv.exp0.g4": "Funis de venda",
+  "cv.exp1.p3":
+    "RUAH Core: uma única identidade de cliente compartilhada entre Studio, Cookies e Food por meio de eventos assinados e sem duplicatas.",
+
   // ── propuesta de valor · trayectoria ──
   "vs.inc1.t": "Diagnóstico",
   "vs.inc1.b": "Encontramos o gargalo real antes de escrever código.",
@@ -1398,11 +1455,11 @@ const pt: Extra = {
   "vs.care5": "Backups onde se aplica",
   "vs.care6": "Contato técnico direto",
   "cv.exp1.role": "Fundador e desenvolvedor full-stack",
-  "cv.exp1.loc": "Nueva Esparta, Venezuela · Remoto",
+  "cv.exp1.loc": "Isla de Margarita, Venezuela · Remoto",
   "cv.exp1.p1":
-    "Ciclo completo do produto: problema, arquitetura, frontend, backend, dados, integrações, fluxos com IA, segurança, implantação e documentação.",
+    "Plataforma do estúdio: um site em 7 idiomas com um assistente de IA que qualifica interessados e monta orçamentos, ligado a um CRM agêntico onde a IA propõe e uma pessoa aprova. Construída e testada; preparando o lançamento.",
   "cv.exp1.p2":
-    "Aplicações web, fluxos de trabalho com IA, automação de processos de negócio, painéis e sistemas internos.",
+    "RUAH Cookies: um MVP de comércio eletrônico em Next.js 16 e PostgreSQL com pagamento móvel local, taxa de câmbio ao vivo e módulos de cozinha e estoque; mais de 120 testes automatizados.",
   "cv.exp1.g1": "Full-stack",
   "cv.exp1.g2": "IA aplicada",
   "cv.exp1.g3": "Automação",
@@ -1410,11 +1467,11 @@ const pt: Extra = {
   "cv.exp2.role": "Líder de projeto multidisciplinar",
   "cv.exp2.loc": "Nueva Esparta, Venezuela · Híbrido",
   "cv.exp2.p1":
-    "Liderei uma equipe multidisciplinar que construiu um sistema autônomo e de baixo custo para monitorar pacientes em consultas ambulatoriais.",
+    "Liderei um sistema de monitoramento de pacientes de baixo custo, com alertas precoces, para ambulatórios públicos em Nueva Esparta.",
   "cv.exp2.p2":
-    "Monitoramento em tempo real de saturação de oxigênio, frequência cardíaca, frequência respiratória, temperatura e sinais de ECG, com conexão sem fio, alertas precoces e reserva de energia.",
+    "Pressão arterial, saturação de oxigênio, frequência cardíaca, frequência respiratória, temperatura e sinais de ECG, sobre ESP32, MQTT, REST e JWT.",
   "cv.exp2.p3":
-    "Coordenei a pesquisa, a integração de hardware e software, e a proposta técnica de ponta a ponta.",
+    "Coordenei a pesquisa, a prototipagem e a integração de hardware e software de ponta a ponta.",
   "cv.exp2.g1": "Sistemas embarcados",
   "cv.exp2.g2": "IoT",
   "cv.exp2.g3": "Sensoriamento médico",
@@ -1422,9 +1479,9 @@ const pt: Extra = {
   "cv.edu1.role": "Bacharelado em Informática",
   "cv.edu1.loc": "Média 8,44 / 10",
   "cv.edu1.p1":
-    "Representante de turma todos os semestres. Líder de projeto no Grupo de Robótica. Serviço comunitário.",
+    "Representante de turma todos os semestres. Membro do Grupo de Robótica da UDO. Serviço comunitário.",
   "cv.edu1.p2":
-    "Disciplinas de C, C++ e C#, programação orientada a objetos, algoritmos, métodos numéricos e programação linear.",
+    "Tese de engenharia em andamento: um wearable de ECG ambulatorial assistido por IA. Protótipo de pesquisa, não um dispositivo médico comercial.",
   "cv.edu1.g1": "Algoritmos",
   "cv.edu1.g2": "Matemática",
   "cv.edu1.g3": "Bancos de dados",
@@ -1854,6 +1911,25 @@ const fr: Extra = {
   // ── cotización adjunta ──
   "wa.quoteFile": "Mon devis (PDF)",
 
+  // ── trayectoria según el Kit ──
+  "cv.present": "Aujourd'hui",
+  "cv.exp0.role": "Développeur en technologies marketing · Freelance",
+  "cv.exp0.org": "Agence de marketing digital (client confidentiel)",
+  "cv.exp0.loc": "À distance",
+  "cv.exp0.p1":
+    "J'ai construit et je maintiens l'infrastructure de tunnels de vente de 11 marques sur 11 domaines et 7 langues sur Cloudflare Pages, avec plus de 260 000 visites sur les 90 derniers jours.",
+  "cv.exp0.p2":
+    "J'ai développé un système d'analytique maison (Cloudflare Worker et tableau de bord en temps réel) qui a remplacé les outils tiers : trafic par marque, étapes du tunnel, appareils et navigateurs intégrés aux applications.",
+  "cv.exp0.p3":
+    "J'ai migré le DNS et les déploiements vers Cloudflare ; j'ai construit le site de l'agence avec le multilingue et l'e-mail transactionnel.",
+  "cv.exp0.p4": "J'ai conçu des systèmes de prompts IA pour la production vidéo et image.",
+  "cv.exp0.g1": "Cloudflare",
+  "cv.exp0.g2": "Analytique",
+  "cv.exp0.g3": "Internationalisation",
+  "cv.exp0.g4": "Tunnels de vente",
+  "cv.exp1.p3":
+    "RUAH Core : une seule identité client partagée entre Studio, Cookies et Food via des événements signés et dédupliqués.",
+
   // ── propuesta de valor · trayectoria ──
   "vs.inc1.t": "Diagnostic",
   "vs.inc1.b": "Nous trouvons le vrai goulot d'étranglement avant d'écrire du code.",
@@ -1891,11 +1967,11 @@ const fr: Extra = {
   "vs.care5": "Sauvegardes lorsque c'est pertinent",
   "vs.care6": "Contact technique direct",
   "cv.exp1.role": "Fondateur et développeur full-stack",
-  "cv.exp1.loc": "Nueva Esparta, Venezuela · À distance",
+  "cv.exp1.loc": "Isla de Margarita, Venezuela · À distance",
   "cv.exp1.p1":
-    "Cycle produit complet : problème, architecture, frontend, backend, données, intégrations, flux IA, sécurité, déploiement et documentation.",
+    "Plateforme du studio : un site en 7 langues avec un assistant IA qui qualifie les prospects et produit des devis, relié à un CRM agentique où l'IA propose et un humain approuve. Construite et testée ; lancement en préparation.",
   "cv.exp1.p2":
-    "Applications web, flux de travail avec IA, automatisation de processus métier, tableaux de bord et systèmes internes.",
+    "RUAH Cookies : un MVP d'e-commerce en Next.js 16 et PostgreSQL avec paiement mobile local, taux de change en direct, et modules cuisine et stock ; plus de 120 tests automatisés.",
   "cv.exp1.g1": "Full-stack",
   "cv.exp1.g2": "IA appliquée",
   "cv.exp1.g3": "Automatisation",
@@ -1903,11 +1979,11 @@ const fr: Extra = {
   "cv.exp2.role": "Chef de projet pluridisciplinaire",
   "cv.exp2.loc": "Nueva Esparta, Venezuela · Hybride",
   "cv.exp2.p1":
-    "J'ai dirigé une équipe pluridisciplinaire qui a construit un système autonome et peu coûteux de surveillance des patients en consultation externe.",
+    "J'ai dirigé un système de surveillance des patients à faible coût, avec alertes précoces, pour les consultations externes publiques de Nueva Esparta.",
   "cv.exp2.p2":
-    "Surveillance en temps réel de la saturation en oxygène, du rythme cardiaque, de la fréquence respiratoire, de la température et des signaux ECG, avec connexion sans fil, alertes précoces et secours d'énergie.",
+    "Pression artérielle, saturation en oxygène, rythme cardiaque, fréquence respiratoire, température et signaux ECG, via ESP32, MQTT, REST et JWT.",
   "cv.exp2.p3":
-    "J'ai coordonné la recherche, l'intégration matérielle et logicielle, et la proposition technique de bout en bout.",
+    "J'ai coordonné la recherche, le prototypage et l'intégration matériel–logiciel de bout en bout.",
   "cv.exp2.g1": "Systèmes embarqués",
   "cv.exp2.g2": "IoT",
   "cv.exp2.g3": "Capteurs médicaux",
@@ -1915,9 +1991,9 @@ const fr: Extra = {
   "cv.edu1.role": "Licence en informatique",
   "cv.edu1.loc": "Moyenne 8,44 / 10",
   "cv.edu1.p1":
-    "Délégué de promotion chaque semestre. Chef de projet au Groupe de robotique. Service communautaire.",
+    "Délégué de promotion chaque semestre. Membre du Groupe de robotique de l'UDO. Service communautaire.",
   "cv.edu1.p2":
-    "Cours de C, C++ et C#, programmation orientée objet, algorithmes, méthodes numériques et programmation linéaire.",
+    "Thèse d'ingénierie en cours : un wearable d'ECG ambulatoire assisté par IA. Prototype de recherche, pas un dispositif médical commercial.",
   "cv.edu1.g1": "Algorithmes",
   "cv.edu1.g2": "Mathématiques",
   "cv.edu1.g3": "Bases de données",
@@ -2348,6 +2424,25 @@ const de: Extra = {
   // ── cotización adjunta ──
   "wa.quoteFile": "Mein Angebot (PDF)",
 
+  // ── trayectoria según el Kit ──
+  "cv.present": "Heute",
+  "cv.exp0.role": "Marketing-Technology-Entwickler · Freiberuflich",
+  "cv.exp0.org": "Digitalagentur für Marketing (vertraulicher Kunde)",
+  "cv.exp0.loc": "Remote",
+  "cv.exp0.p1":
+    "Ich habe die Sales-Funnel-Infrastruktur für 11 Marken auf 11 Domains in 7 Sprachen auf Cloudflare Pages gebaut und betreue sie — über 260.000 Besuche in den letzten 90 Tagen.",
+  "cv.exp0.p2":
+    "Ich habe ein eigenes Analytics-System entwickelt (Cloudflare Worker und Echtzeit-Dashboard), das Drittanbieter-Tools ersetzt: Traffic je Marke, Funnel-Schritte, Geräte und In-App-Browser.",
+  "cv.exp0.p3":
+    "Ich habe DNS und Deployments zu Cloudflare migriert und die Website der Agentur mit Mehrsprachigkeit und transaktionalem E-Mail-Versand gebaut.",
+  "cv.exp0.p4": "Ich habe KI-Prompt-Systeme für Video- und Bildproduktion entworfen.",
+  "cv.exp0.g1": "Cloudflare",
+  "cv.exp0.g2": "Analytics",
+  "cv.exp0.g3": "Internationalisierung",
+  "cv.exp0.g4": "Sales Funnels",
+  "cv.exp1.p3":
+    "RUAH Core: eine gemeinsame Kundenidentität für Studio, Cookies und Food über signierte, entduplizierte Ereignisse.",
+
   // ── propuesta de valor · trayectoria ──
   "vs.inc1.t": "Analyse",
   "vs.inc1.b": "Wir finden den echten Engpass, bevor Code entsteht.",
@@ -2385,11 +2480,11 @@ const de: Extra = {
   "vs.care5": "Backups, wo sinnvoll",
   "vs.care6": "Direkter technischer Kontakt",
   "cv.exp1.role": "Gründer und Full-Stack-Entwickler",
-  "cv.exp1.loc": "Nueva Esparta, Venezuela · Remote",
+  "cv.exp1.loc": "Isla de Margarita, Venezuela · Remote",
   "cv.exp1.p1":
-    "Vollständiger Produktzyklus: Problem, Architektur, Frontend, Backend, Daten, Integrationen, KI-Abläufe, Sicherheit, Deployment und Dokumentation.",
+    "Studio-Plattform: eine Website in 7 Sprachen mit einem KI-Assistenten, der Interessenten qualifiziert und Angebote erstellt, verbunden mit einem agentischen CRM, in dem die KI vorschlägt und ein Mensch freigibt. Gebaut und getestet; Start in Vorbereitung.",
   "cv.exp1.p2":
-    "Webanwendungen, KI-gestützte Abläufe, Automatisierung von Geschäftsprozessen, Dashboards und interne Systeme.",
+    "RUAH Cookies: ein E-Commerce-MVP mit Next.js 16 und PostgreSQL, lokaler mobiler Zahlung, Live-Wechselkurs sowie Küchen- und Lagermodulen; über 120 automatisierte Tests.",
   "cv.exp1.g1": "Full-Stack",
   "cv.exp1.g2": "Angewandte KI",
   "cv.exp1.g3": "Automatisierung",
@@ -2397,11 +2492,11 @@ const de: Extra = {
   "cv.exp2.role": "Leiter eines interdisziplinären Projekts",
   "cv.exp2.loc": "Nueva Esparta, Venezuela · Hybrid",
   "cv.exp2.p1":
-    "Ich leitete ein interdisziplinäres Team, das ein kostengünstiges, autonomes System zur Patientenüberwachung in ambulanten Praxen baute.",
+    "Ich leitete ein kostengünstiges System zur Patientenüberwachung mit Frühwarnungen für öffentliche Ambulanzen in Nueva Esparta.",
   "cv.exp2.p2":
-    "Echtzeitüberwachung von Sauerstoffsättigung, Herzfrequenz, Atemfrequenz, Temperatur und EKG-Signalen, mit Funkverbindung, Frühwarnungen und Notstromversorgung.",
+    "Blutdruck, Sauerstoffsättigung, Herzfrequenz, Atemfrequenz, Temperatur und EKG-Signale über ESP32, MQTT, REST und JWT.",
   "cv.exp2.p3":
-    "Ich koordinierte die Recherche, die Hardware- und Software-Integration und den technischen Vorschlag von Anfang bis Ende.",
+    "Ich koordinierte Recherche, Prototyping und die Hardware-Software-Integration von Anfang bis Ende.",
   "cv.exp2.g1": "Eingebettete Systeme",
   "cv.exp2.g2": "IoT",
   "cv.exp2.g3": "Medizinische Sensorik",
@@ -2409,9 +2504,9 @@ const de: Extra = {
   "cv.edu1.role": "B.Sc. Informatik",
   "cv.edu1.loc": "Notenschnitt 8,44 / 10",
   "cv.edu1.p1":
-    "Jedes Semester Jahrgangssprecher. Projektleiter in der Robotik-Gruppe. Gemeinnütziger Dienst.",
+    "Jedes Semester Jahrgangssprecher. Mitglied der Robotik-Gruppe der UDO. Gemeinnütziger Dienst.",
   "cv.edu1.p2":
-    "Lehrveranstaltungen in C, C++ und C#, objektorientierte Programmierung, Algorithmen, numerische Methoden und lineare Optimierung.",
+    "Ingenieur-Abschlussarbeit in Arbeit: ein KI-gestütztes Wearable für ambulantes EKG. Forschungsprototyp, kein kommerzielles Medizinprodukt.",
   "cv.edu1.g1": "Algorithmen",
   "cv.edu1.g2": "Mathematik",
   "cv.edu1.g3": "Datenbanken",
@@ -2836,6 +2931,25 @@ const it: Extra = {
   // ── cotización adjunta ──
   "wa.quoteFile": "Il mio preventivo (PDF)",
 
+  // ── trayectoria según el Kit ──
+  "cv.present": "Oggi",
+  "cv.exp0.role": "Sviluppatore di tecnologie di marketing · Freelance",
+  "cv.exp0.org": "Agenzia di marketing digitale (cliente riservato)",
+  "cv.exp0.loc": "Da remoto",
+  "cv.exp0.p1":
+    "Ho costruito e mantengo l'infrastruttura dei funnel di vendita di 11 marchi su 11 domini e 7 lingue su Cloudflare Pages, con oltre 260.000 visite negli ultimi 90 giorni.",
+  "cv.exp0.p2":
+    "Ho sviluppato un sistema di analytics proprietario (Cloudflare Worker e cruscotto in tempo reale) che ha sostituito gli strumenti di terze parti: traffico per marchio, passaggi del funnel, dispositivi e browser interni alle app.",
+  "cv.exp0.p3":
+    "Ho migrato DNS e rilasci su Cloudflare; ho costruito il sito dell'agenzia con il multilingua e le email transazionali.",
+  "cv.exp0.p4": "Ho progettato sistemi di prompt con IA per la produzione di video e immagini.",
+  "cv.exp0.g1": "Cloudflare",
+  "cv.exp0.g2": "Analytics",
+  "cv.exp0.g3": "Internazionalizzazione",
+  "cv.exp0.g4": "Funnel di vendita",
+  "cv.exp1.p3":
+    "RUAH Core: un'unica identità cliente condivisa tra Studio, Cookies e Food tramite eventi firmati e deduplicati.",
+
   // ── propuesta de valor · trayectoria ──
   "vs.inc1.t": "Diagnosi",
   "vs.inc1.b": "Troviamo il collo di bottiglia reale prima di scrivere codice.",
@@ -2872,11 +2986,11 @@ const it: Extra = {
   "vs.care5": "Backup dove applicabile",
   "vs.care6": "Contatto tecnico diretto",
   "cv.exp1.role": "Fondatore e sviluppatore full-stack",
-  "cv.exp1.loc": "Nueva Esparta, Venezuela · Da remoto",
+  "cv.exp1.loc": "Isla de Margarita, Venezuela · Da remoto",
   "cv.exp1.p1":
-    "Ciclo completo del prodotto: problema, architettura, frontend, backend, dati, integrazioni, flussi con IA, sicurezza, rilascio e documentazione.",
+    "Piattaforma dello studio: un sito in 7 lingue con un assistente IA che qualifica i contatti e prepara preventivi, collegato a un CRM agentico dove l'IA propone e una persona approva. Costruita e testata; lancio in preparazione.",
   "cv.exp1.p2":
-    "Applicazioni web, flussi di lavoro con IA, automazione dei processi aziendali, cruscotti e sistemi interni.",
+    "RUAH Cookies: un MVP di e-commerce in Next.js 16 e PostgreSQL con pagamento mobile locale, tasso di cambio in tempo reale e moduli cucina e magazzino; oltre 120 test automatizzati.",
   "cv.exp1.g1": "Full-stack",
   "cv.exp1.g2": "IA applicata",
   "cv.exp1.g3": "Automazione",
@@ -2884,11 +2998,11 @@ const it: Extra = {
   "cv.exp2.role": "Responsabile di progetto multidisciplinare",
   "cv.exp2.loc": "Nueva Esparta, Venezuela · Ibrido",
   "cv.exp2.p1":
-    "Ho guidato un team multidisciplinare che ha costruito un sistema autonomo e a basso costo per monitorare i pazienti in ambulatorio.",
+    "Ho guidato un sistema di monitoraggio dei pazienti a basso costo, con allerte precoci, per gli ambulatori pubblici di Nueva Esparta.",
   "cv.exp2.p2":
-    "Monitoraggio in tempo reale di saturazione di ossigeno, frequenza cardiaca, frequenza respiratoria, temperatura e segnali ECG, con connessione wireless, allerte precoci e riserva di energia.",
+    "Pressione arteriosa, saturazione di ossigeno, frequenza cardiaca, frequenza respiratoria, temperatura e segnali ECG, su ESP32, MQTT, REST e JWT.",
   "cv.exp2.p3":
-    "Ho coordinato la ricerca, l'integrazione hardware e software e la proposta tecnica dall'inizio alla fine.",
+    "Ho coordinato ricerca, prototipazione e integrazione hardware–software dall'inizio alla fine.",
   "cv.exp2.g1": "Sistemi embedded",
   "cv.exp2.g2": "IoT",
   "cv.exp2.g3": "Sensoristica medica",
@@ -2896,9 +3010,9 @@ const it: Extra = {
   "cv.edu1.role": "Laurea in Informatica",
   "cv.edu1.loc": "Media 8,44 / 10",
   "cv.edu1.p1":
-    "Rappresentante di corso ogni semestre. Responsabile di progetto nel Gruppo di Robotica. Servizio civile.",
+    "Rappresentante di corso ogni semestre. Membro del Gruppo di Robotica della UDO. Servizio civile.",
   "cv.edu1.p2":
-    "Corsi di C, C++ e C#, programmazione a oggetti, algoritmi, metodi numerici e programmazione lineare.",
+    "Tesi di ingegneria in corso: un wearable per ECG ambulatoriale assistito dall'IA. Prototipo di ricerca, non un dispositivo medico commerciale.",
   "cv.edu1.g1": "Algoritmi",
   "cv.edu1.g2": "Matematica",
   "cv.edu1.g3": "Basi di dati",
@@ -3311,6 +3425,25 @@ const ar: Extra = {
   // ── cotización adjunta ──
   "wa.quoteFile": "عرض السعر (PDF)",
 
+  // ── trayectoria según el Kit ──
+  "cv.present": "حتى الآن",
+  "cv.exp0.role": "مطوّر تقنيات تسويق · عمل حر",
+  "cv.exp0.org": "وكالة تسويق رقمي (عميل سرّي)",
+  "cv.exp0.loc": "عن بُعد",
+  "cv.exp0.p1":
+    "بنيت وأتولّى صيانة بنية مسارات البيع لـ 11 علامة تجارية على 11 نطاقًا وبسبع لغات على Cloudflare Pages، بأكثر من 260 ألف زيارة خلال آخر 90 يومًا.",
+  "cv.exp0.p2":
+    "طوّرت نظام تحليلات خاصًا (Cloudflare Worker ولوحة لحظية) حلّ محل أدوات الطرف الثالث: الزيارات لكل علامة، وخطوات المسار، والأجهزة والمتصفحات داخل التطبيقات.",
+  "cv.exp0.p3":
+    "نقلت الـ DNS وعمليات النشر إلى Cloudflare، وبنيت موقع الوكالة بدعم متعدد اللغات وبريد المعاملات.",
+  "cv.exp0.p4": "صمّمت أنظمة موجّهات بالذكاء الاصطناعي لإنتاج الفيديو والصور.",
+  "cv.exp0.g1": "Cloudflare",
+  "cv.exp0.g2": "التحليلات",
+  "cv.exp0.g3": "التدويل",
+  "cv.exp0.g4": "مسارات البيع",
+  "cv.exp1.p3":
+    "RUAH Core: هوية عميل واحدة مشتركة بين Studio وCookies وFood عبر أحداث موقَّعة وبلا تكرار.",
+
   // ── propuesta de valor · trayectoria ──
   "vs.inc1.t": "التشخيص",
   "vs.inc1.b": "نحدّد الاختناق الحقيقي قبل كتابة أي شيفرة.",
@@ -3347,11 +3480,11 @@ const ar: Extra = {
   "vs.care5": "نسخ احتياطية حيثما ينطبق",
   "vs.care6": "تواصل تقني مباشر",
   "cv.exp1.role": "مؤسس ومطوّر متكامل",
-  "cv.exp1.loc": "نويفا إسبارتا، فنزويلا · عن بُعد",
+  "cv.exp1.loc": "جزيرة مارغاريتا، فنزويلا · عن بُعد",
   "cv.exp1.p1":
-    "دورة المنتج كاملة: المشكلة، البنية، الواجهة، الخادم، البيانات، التكاملات، تدفقات الذكاء الاصطناعي، الأمان، النشر والتوثيق.",
+    "منصّة الاستوديو: موقع بسبع لغات مع مساعد ذكاء اصطناعي يؤهّل العملاء ويُعدّ عروض الأسعار، موصول بنظام CRM وكيلي تقترح فيه الذكاء الاصطناعي ويوافق الإنسان. مبنية ومُختبَرة؛ قيد التحضير للإطلاق.",
   "cv.exp1.p2":
-    "تطبيقات ويب، وتدفقات عمل بالذكاء الاصطناعي، وأتمتة عمليات الأعمال، ولوحات معلومات وأنظمة داخلية.",
+    "RUAH Cookies: نموذج تجارة إلكترونية أولي بـ Next.js 16 وPostgreSQL مع دفع محمول محلي وسعر صرف لحظي ووحدات للمطبخ والمخزون؛ أكثر من 120 اختبارًا آليًا.",
   "cv.exp1.g1": "تطوير متكامل",
   "cv.exp1.g2": "ذكاء اصطناعي تطبيقي",
   "cv.exp1.g3": "أتمتة",
@@ -3359,19 +3492,20 @@ const ar: Extra = {
   "cv.exp2.role": "قائد مشروع متعدد التخصصات",
   "cv.exp2.loc": "نويفا إسبارتا، فنزويلا · هجين",
   "cv.exp2.p1":
-    "قدت فريقًا متعدد التخصصات بنى نظامًا ذاتيًا منخفض التكلفة لمراقبة المرضى في العيادات الخارجية.",
+    "قدت نظامًا منخفض التكلفة لمراقبة المرضى مع تنبيهات مبكرة، للعيادات الخارجية العامة في نويفا إسبارتا.",
   "cv.exp2.p2":
-    "مراقبة لحظية لتشبّع الأكسجين ومعدّل النبض ومعدّل التنفّس ودرجة الحرارة وإشارات تخطيط القلب، باتصال لاسلكي وتنبيهات مبكرة ومصدر طاقة احتياطي.",
-  "cv.exp2.p3": "نسّقت البحث، وتكامل العتاد والبرمجيات، والمقترح التقني من البداية إلى النهاية.",
+    "ضغط الدم وتشبّع الأكسجين ومعدّل النبض ومعدّل التنفّس ودرجة الحرارة وإشارات تخطيط القلب، عبر ESP32 وMQTT وREST وJWT.",
+  "cv.exp2.p3":
+    "نسّقت البحث وبناء النماذج الأولية وتكامل العتاد والبرمجيات من البداية إلى النهاية.",
   "cv.exp2.g1": "الأنظمة المدمجة",
   "cv.exp2.g2": "إنترنت الأشياء",
   "cv.exp2.g3": "استشعار طبي",
   "cv.exp2.g4": "قيادة الفريق",
   "cv.edu1.role": "بكالوريوس في المعلوماتية",
   "cv.edu1.loc": "المعدّل 8٫44 / 10",
-  "cv.edu1.p1": "ممثّل الشعبة كل فصل دراسي. قائد مشروع في مجموعة الروبوتات. خدمة مجتمعية.",
+  "cv.edu1.p1": "ممثّل الشعبة كل فصل دراسي. عضو في مجموعة الروبوتات بجامعة أورينتي. خدمة مجتمعية.",
   "cv.edu1.p2":
-    "مقررات في C وC++ وC#، والبرمجة كائنية التوجّه، والخوارزميات، والطرق العددية، والبرمجة الخطية.",
+    "أطروحة هندسية قيد الإنجاز: جهاز مُرتدى لتخطيط القلب المتنقّل بمساعدة الذكاء الاصطناعي. نموذج بحثي، وليس جهازًا طبيًا تجاريًا.",
   "cv.edu1.g1": "الخوارزميات",
   "cv.edu1.g2": "الرياضيات",
   "cv.edu1.g3": "قواعد البيانات",

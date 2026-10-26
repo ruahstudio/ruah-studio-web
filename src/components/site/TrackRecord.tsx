@@ -23,10 +23,14 @@ import type { ExtraKey } from "@/i18n/extra";
  * make it unverifiable, which is the one thing this section cannot afford.
  */
 type Entry = {
-  /** Literal: dates read the same everywhere. */
-  period: string;
-  /** Literal: the institution, as it is actually called. */
+  /** `YYYY-MM`. Formatted per language, so "Jul 2026" reads right everywhere. */
+  start: string;
+  /** `YYYY-MM`, or null while the role is current. */
+  end: string | null;
+  /** The institution as it is actually called — or a key, when it must not be named. */
   org: string;
+  /** True when `org` is a translation key rather than a literal name. */
+  orgIsKey?: boolean;
   roleKey: ExtraKey;
   locationKey: ExtraKey;
   pointKeys: ExtraKey[];
@@ -35,16 +39,30 @@ type Entry = {
 
 const EXPERIENCE: Entry[] = [
   {
-    period: "2026 —",
+    // The agency is never named, and neither is its niche. "Digital marketing
+    // agency (confidential client)" is the agreed wording, here and on the CV.
+    start: "2026-07",
+    end: null,
+    org: "cv.exp0.org",
+    orgIsKey: true,
+    roleKey: "cv.exp0.role",
+    locationKey: "cv.exp0.loc",
+    pointKeys: ["cv.exp0.p1", "cv.exp0.p2", "cv.exp0.p3", "cv.exp0.p4"],
+    tagKeys: ["cv.exp0.g1", "cv.exp0.g2", "cv.exp0.g3", "cv.exp0.g4"],
+  },
+  {
+    start: "2026-08",
+    end: null,
     org: "Ruah Studio",
     roleKey: "cv.exp1.role",
     locationKey: "cv.exp1.loc",
-    pointKeys: ["cv.exp1.p1", "cv.exp1.p2"],
+    pointKeys: ["cv.exp1.p1", "cv.exp1.p2", "cv.exp1.p3"],
     tagKeys: ["cv.exp1.g1", "cv.exp1.g2", "cv.exp1.g3", "cv.exp1.g4"],
   },
   {
-    period: "2025 — 2026",
-    org: "VitalCare · Universidad de Oriente",
+    start: "2025-04",
+    end: "2026-04",
+    org: "VitalCare · UDO Robotics Group",
     roleKey: "cv.exp2.role",
     locationKey: "cv.exp2.loc",
     pointKeys: ["cv.exp2.p1", "cv.exp2.p2", "cv.exp2.p3"],
@@ -52,9 +70,38 @@ const EXPERIENCE: Entry[] = [
   },
 ];
 
+/**
+ * "Jul 2026 — Present", in the reader's language.
+ *
+ * The periods were literal strings, so an Arabic or German visitor read
+ * English month abbreviations in the middle of their own CV section. Intl
+ * does the month names; the dictionary does the word for "present".
+ */
+function formatPeriod(entry: Entry, lang: string, present: string): string {
+  const month = (ym: string) => {
+    const [y, m] = ym.split("-").map(Number);
+    if (!y) return ym;
+    try {
+      // timeZone: "UTC" is not optional. The date is built in UTC, but
+      // Intl formats in the viewer's zone by default — so west of Greenwich
+      // the first of the month falls back into the previous one, and every
+      // period on the CV read a month early.
+      return new Intl.DateTimeFormat(lang, {
+        month: "short",
+        year: "numeric",
+        timeZone: "UTC",
+      }).format(new Date(Date.UTC(y, (m ?? 1) - 1, 1)));
+    } catch {
+      return String(y);
+    }
+  };
+  return `${month(entry.start)} — ${entry.end ? month(entry.end) : present}`;
+}
+
 const EDUCATION: Entry[] = [
   {
-    period: "2023 — 2028",
+    start: "2023-10",
+    end: "2028-07",
     org: "Universidad de Oriente",
     roleKey: "cv.edu1.role",
     locationKey: "cv.edu1.loc",
@@ -65,7 +112,8 @@ const EDUCATION: Entry[] = [
 
 function Timeline({ entries, label }: { entries: Entry[]; label: string }) {
   const reduced = useReducedMotion();
-  const { tr } = useTranslation();
+  const { tr, lang } = useTranslation();
+  const present = tr("cv.present");
   return (
     <div>
       <p className="label-mono">{label}</p>
@@ -79,13 +127,13 @@ function Timeline({ entries, label }: { entries: Entry[]; label: string }) {
             transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
             className="grid gap-3 border-t border-border py-7 last:border-b md:grid-cols-12 md:gap-8"
           >
-            <p className="label-mono numeric md:col-span-3" dir="ltr">
-              {e.period}
-            </p>
+            <p className="label-mono numeric md:col-span-3">{formatPeriod(e, lang, present)}</p>
 
             <div className="md:col-span-9">
               <h3 className="font-display text-lg font-bold tracking-tight">{tr(e.roleKey)}</h3>
-              <p className="mt-0.5 font-mono text-xs text-signal">{e.org}</p>
+              <p className="mt-0.5 font-mono text-xs text-signal">
+                {e.orgIsKey ? tr(e.org as ExtraKey) : e.org}
+              </p>
               <p className="mt-0.5 font-mono text-[11px] text-muted-foreground">
                 {tr(e.locationKey)}
               </p>
