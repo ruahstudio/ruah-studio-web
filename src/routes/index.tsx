@@ -7,6 +7,7 @@ import { Reveal } from "@/components/Reveal";
 import type { ExtraKey } from "@/i18n/extra";
 import { Testimonials } from "@/components/Testimonials";
 import { SITE } from "@/lib/content";
+import { absoluteUrl } from "@/lib/seo";
 import {
   STUDIO_DEFAULTS,
   useFaqs,
@@ -42,12 +43,15 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: SITE.seo.description },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: SITE.name },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: absoluteUrl("/") },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: SITE.seo.title },
       { name: "twitter:description", content: SITE.seo.description },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    // Absolute, and the only one on the page: the root route also declares a
+    // canonical, and two of them — one of which was relative — is what
+    // Lighthouse flagged as an invalid canonical.
+    links: [{ rel: "canonical", href: absoluteUrl("/") }],
     scripts: [
       {
         type: "application/ld+json",

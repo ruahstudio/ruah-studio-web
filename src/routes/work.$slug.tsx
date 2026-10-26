@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,19 @@ import { useTranslation } from "@/i18n";
 export const Route = createFileRoute("/work/$slug")({
   component: CaseStudy,
 });
+
+/** Sets `robots: noindex` while it is mounted, and restores it on the way out. */
+function NoIndex() {
+  useEffect(() => {
+    const tag = document.querySelector('meta[name="robots"]');
+    const previous = tag?.getAttribute("content") ?? null;
+    if (tag) tag.setAttribute("content", "noindex, follow");
+    return () => {
+      if (tag && previous !== null) tag.setAttribute("content", previous);
+    };
+  }, []);
+  return null;
+}
 
 function CaseStudy() {
   const { slug } = Route.useParams();
@@ -36,6 +50,14 @@ function CaseStudy() {
   if (!project) {
     return (
       <main className="mx-auto max-w-3xl px-5 py-32 text-center sm:px-6">
+        {/* Keep the miss out of the index.
+         *
+         * This route answered HTTP 200 for any slug, so Google was free to
+         * index every wrong URL as a real page. A true 404 status needs the
+         * projects to load on the server — which is also what would let a
+         * case study be crawlable at all — so that comes with the portfolio
+         * work. Until then, this at least stops the indexing. */}
+        <NoIndex />
         <p className="label-mono">404</p>
         <h1 className="display-lg mt-4">{tr("work.title")}</h1>
         <Button asChild className="mt-8 font-mono text-xs uppercase tracking-widest">
