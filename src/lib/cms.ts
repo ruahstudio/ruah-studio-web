@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation, type AnyKey, type Lang } from "@/i18n";
-import { PRICING, WE_BUILD } from "@/lib/content";
+import { PRICING, SITE, WE_BUILD } from "@/lib/content";
 
 /**
  * Resolves a localized column.
@@ -81,7 +81,7 @@ export const STUDIO_DEFAULTS: Record<string, string> = {
   form_title: "Have an idea? Let's build it.",
   form_subtitle: "Tell us what you're trying to build, improve or automate.",
   whatsapp: "584222010041",
-  email: "hola@ruahstudio.com",
+  email: SITE.email,
   founder: "John Salazar",
   photo_url: "",
   // Social profiles. Empty means the link is hidden rather than pointing at
